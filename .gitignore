@@ -1,0 +1,52 @@
+# Rust
+# build artifacts at ANY depth: the excluded testsvm-mollusk crate builds its
+# own target/ inside crates/, which a root-only /target/ missed (and let 596MB
+# of artifacts into history once; rewritten out).
+target/
+anchor-escrow-example/target/
+# assembled agent-skill artifact (scripts/assemble-agent-skill.py); the book
+# pages under book/src/agents/ are the source
+/build/
+**/*.rs.bk
+*.pdb
+
+# Cargo
+Cargo.lock
+# Keep Cargo.lock for binary crates, comment out for libraries
+# Uncomment the line above if this is a library
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+*.dSYM/
+
+# Testing
+tarpaulin-report.html
+cobertura.xml
+
+# Profiling
+*.prof
+perf.data
+perf.data.old
+flamegraph.svg
+
+# Build artifacts
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Backup files
+*.bak
+*.tmp
+*.temp
