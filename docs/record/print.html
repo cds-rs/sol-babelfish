@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-691ee20b.js";
+            window.path_to_searchindex_js = "searchindex-aa287649.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -201,32 +201,35 @@
 <li>Then: payload = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] ✓</li>
 </ul>
 <p>Result: ✓ success — 707 CU · claims 3/3 ✓</p>
-<pre><code class="language-mermaid">sequenceDiagram
+<pre class="mermaid">sequenceDiagram
     participant p0 as payer
     participant p1 as Record
     p0-&gt;&gt;p1: initialize
     activate p1
     p1--&gt;&gt;p0: ✓ 707cu
     deactivate p1
-</code></pre>
+</pre>
+
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1115[("1115…")]:::state
-    Record --&gt;|writes| 1115
+    1117[("1117…")]:::state
+    Record --&gt;|writes| 1117
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1115[("1115…")]:::state
-    Record --&gt;|owns| 1115
+    1117[("1117…")]:::state
+    Record --&gt;|owns| 1117
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="accounts-1"><a class="header" href="#accounts-1">Accounts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -234,7 +237,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1115…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1117…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
 </table>
@@ -287,7 +290,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <li>Then: a write from someone who is not the authority is rejected ✓</li>
 </ul>
 <p>Result: ✗ failed — 833 CU · claims 1/1 ✓</p>
-<pre><code class="language-mermaid">sequenceDiagram
+<pre class="mermaid">sequenceDiagram
     participant p0 as mallory
     participant p1 as Record
     p0-&gt;&gt;p1: write
@@ -295,30 +298,33 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
     note over p1: 🚩 custom program error  0x0
     p1--&gt;&gt;p0: ✗ 833cu
     deactivate p1
-</code></pre>
+</pre>
+
 <h2 id="authority-1"><a class="header" href="#authority-1">Authority</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111J[("111J…")]:::state
+    111F[("111F…")]:::state
     mallory(["mallory"]):::signer
-    Record --&gt;|writes| 111J
+    Record --&gt;|writes| 111F
     mallory --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="ownership-1"><a class="header" href="#ownership-1">Ownership</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111J[("111J…")]:::state
+    111F[("111F…")]:::state
     system["system"]:::program
     mallory[("mallory")]:::state
-    Record --&gt;|owns| 111J
+    Record --&gt;|owns| 111F
     system --&gt;|owns| mallory
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="accounts-3"><a class="header" href="#accounts-3">Accounts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -326,7 +332,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111J…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>mallory</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -354,37 +360,40 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 failed: custom program error
 <li>Then: the bytes land at payload offset 0 ✓</li>
 </ul>
 <p>Result: ✓ success — 805 CU · claims 1/1 ✓</p>
-<pre><code class="language-mermaid">sequenceDiagram
+<pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Record
     p0-&gt;&gt;p1: write
     activate p1
     p1--&gt;&gt;p0: ✓ 805cu
     deactivate p1
-</code></pre>
+</pre>
+
 <h2 id="authority-2"><a class="header" href="#authority-2">Authority</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1117[("1117…")]:::state
+    1115[("1115…")]:::state
     alice(["alice"]):::signer
-    Record --&gt;|writes| 1117
+    Record --&gt;|writes| 1115
     alice --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="ownership-2"><a class="header" href="#ownership-2">Ownership</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1117[("1117…")]:::state
+    1115[("1115…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    Record --&gt;|owns| 1117
+    Record --&gt;|owns| 1115
     system --&gt;|owns| alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="accounts-4"><a class="header" href="#accounts-4">Accounts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -392,7 +401,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 failed: custom program error
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1117…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1115…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -437,16 +446,17 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <li>Then: alice no longer controls it ✓</li>
 </ul>
 <p>Result: ✓ success — 943 CU · claims 2/2 ✓</p>
-<pre><code class="language-mermaid">sequenceDiagram
+<pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Record
     p0-&gt;&gt;p1: setAuthority
     activate p1
     p1--&gt;&gt;p0: ✓ 943cu
     deactivate p1
-</code></pre>
+</pre>
+
 <h2 id="authority-3"><a class="header" href="#authority-3">Authority</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
     111B[("111B…")]:::state
     alice(["alice"]):::signer
@@ -455,9 +465,10 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="ownership-3"><a class="header" href="#ownership-3">Ownership</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
     111B[("111B…")]:::state
     system["system"]:::program
@@ -467,7 +478,8 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="accounts-6"><a class="header" href="#accounts-6">Accounts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -519,38 +531,41 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <li>Then: receiver lamports = 10000000 ✓</li>
 </ul>
 <p>Result: ✓ success — 988 CU · claims 2/2 ✓</p>
-<pre><code class="language-mermaid">sequenceDiagram
+<pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Record
     p0-&gt;&gt;p1: closeAccount
     activate p1
     p1--&gt;&gt;p0: ✓ 988cu
     deactivate p1
-</code></pre>
+</pre>
+
 <h2 id="authority-4"><a class="header" href="#authority-4">Authority</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
     1119[("1119…")]:::state
     alice(["alice"]):::signer
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     Record --&gt;|writes| 1119
     alice --&gt;|signs| Record
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="ownership-4"><a class="header" href="#ownership-4">Ownership</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     system["system"]:::program
     alice[("alice")]:::state
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     system --&gt;|owns| alice
-    system --&gt;|owns| 111F
+    system --&gt;|owns| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="accounts-8"><a class="header" href="#accounts-8">Accounts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -560,7 +575,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <tbody>
 <tr><td>1119…</td><td>·</td><td>✓</td><td>-</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>system</td></tr>
+<tr><td>111J…</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
 </div>
@@ -654,6 +669,8 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-ccf746f1.js"></script>
 
         <script>
         window.addEventListener('load', function() {

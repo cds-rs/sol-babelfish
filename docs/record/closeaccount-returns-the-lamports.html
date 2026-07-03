@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-691ee20b.js";
+            window.path_to_searchindex_js = "searchindex-aa287649.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -184,38 +184,41 @@
 <li>Then: receiver lamports = 10000000 ✓</li>
 </ul>
 <p>Result: ✓ success — 988 CU · claims 2/2 ✓</p>
-<pre><code class="language-mermaid">sequenceDiagram
+<pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Record
     p0-&gt;&gt;p1: closeAccount
     activate p1
     p1--&gt;&gt;p0: ✓ 988cu
     deactivate p1
-</code></pre>
+</pre>
+
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     Record["Record"]:::program
     1119[("1119…")]:::state
     alice(["alice"]):::signer
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     Record --&gt;|writes| 1119
     alice --&gt;|signs| Record
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid">flowchart LR
     system["system"]:::program
     alice[("alice")]:::state
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     system --&gt;|owns| alice
-    system --&gt;|owns| 111F
+    system --&gt;|owns| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
-</code></pre>
+</pre>
+
 <h2 id="accounts"><a class="header" href="#accounts">Accounts</a></h2>
 <div class="table-wrapper">
 <table>
@@ -225,7 +228,7 @@
 <tbody>
 <tr><td>1119…</td><td>·</td><td>✓</td><td>-</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>system</td></tr>
+<tr><td>111J…</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
 </div>
@@ -293,6 +296,8 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-ccf746f1.js"></script>
 
 
 

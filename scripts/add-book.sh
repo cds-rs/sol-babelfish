@@ -35,6 +35,9 @@ for f in "$tmp/book/src/"*.md; do
   sed -E 's#\*\*Source:\*\* \[(`[^`]*`[^]]*)\]\([^)]*\)#**Source:** \1#' "$f" > "$f.tmp"
   mv "$f.tmp" "$f"
 done
+# Ensure mermaid rendering regardless of whether the source repo's `make book`
+# wired it (patches book.toml + drops in the JS assets; idempotent).
+command -v mdbook-mermaid >/dev/null 2>&1 && mdbook-mermaid install "$tmp/book" >/dev/null 2>&1 || true
 ( cd "$tmp/book" && mdbook build >/dev/null )
 
 rm -rf "${docs:?}/${slug}"
