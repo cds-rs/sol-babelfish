@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-aa287649.js";
+            window.path_to_searchindex_js = "searchindex-a5cf918f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -176,6 +176,9 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
+<p>These pages are generated from the program’s Codama IDL: one per instruction, with its accounts and arguments. Nothing here was written by hand.</p>
+<p>This analysis is experimental. Everything below was reconstructed by machine from the IDL rather than declared by a human, so it arrives with all the cheerful confidence of a depressed robot who has worked out the odds and would rather not go on about it. Treat it as the output of an Infinite Improbability Drive: usually correct, occasionally improbable, and always worth checking against the executed examples nested under each instruction, which have at least had the decency to actually run.</p>
+<p>Don’t Panic.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="initialize"><a class="header" href="#initialize">initialize</a></h1>
 <h2 id="accounts"><a class="header" href="#accounts">Accounts</a></h2>
@@ -213,8 +216,8 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1117[("1117…")]:::state
-    Record --&gt;|writes| 1117
+    1119[("1119…")]:::state
+    Record --&gt;|writes| 1119
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -223,8 +226,8 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1117[("1117…")]:::state
-    Record --&gt;|owns| 1117
+    1119[("1119…")]:::state
+    Record --&gt;|owns| 1119
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -237,7 +240,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1117…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1119…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
 </table>
@@ -303,9 +306,9 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <h2 id="authority-1"><a class="header" href="#authority-1">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111B[("111B…")]:::state
     mallory(["mallory"]):::signer
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111B
     mallory --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -315,10 +318,10 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <h2 id="ownership-1"><a class="header" href="#ownership-1">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111B[("111B…")]:::state
     system["system"]:::program
     mallory[("mallory")]:::state
-    Record --&gt;|owns| 111F
+    Record --&gt;|owns| 111B
     system --&gt;|owns| mallory
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -332,7 +335,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111B…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>mallory</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -458,9 +461,9 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <h2 id="authority-3"><a class="header" href="#authority-3">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111B[("111B…")]:::state
+    111F[("111F…")]:::state
     alice(["alice"]):::signer
-    Record --&gt;|writes| 111B
+    Record --&gt;|writes| 111F
     alice --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -470,10 +473,10 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <h2 id="ownership-3"><a class="header" href="#ownership-3">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111B[("111B…")]:::state
+    111F[("111F…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    Record --&gt;|owns| 111B
+    Record --&gt;|owns| 111F
     system --&gt;|owns| alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -487,7 +490,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111B…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>bob</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
@@ -543,10 +546,10 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <h2 id="authority-4"><a class="header" href="#authority-4">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1119[("1119…")]:::state
+    1117[("1117…")]:::state
     alice(["alice"]):::signer
     111J[("111J…")]:::state
-    Record --&gt;|writes| 1119
+    Record --&gt;|writes| 1117
     alice --&gt;|signs| Record
     Record --&gt;|writes| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
@@ -573,7 +576,7 @@ Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1119…</td><td>·</td><td>✓</td><td>-</td></tr>
+<tr><td>1117…</td><td>·</td><td>✓</td><td>-</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>111J…</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
