@@ -1,2 +1,3 @@
+amm	AMM	A constant-product AMM: initialize a pool, add liquidity, and the atomic sandwich that proves a locked pool is no boundary against the authority who holds the key.
 record	Record	The SPL Record program: store bytes behind an authority you can hand off. Small and complete, a good first read.
 subscriptions	Subscriptions	A recurring-payment program: plans, subscriptions, delegations, and the audit findings that now hold as enforcement exhibits.
