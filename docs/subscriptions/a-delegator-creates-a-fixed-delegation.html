@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-938aa96d.js";
+            window.path_to_searchindex_js = "searchindex-3b16a043.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-d3c4b178.js"></script>
@@ -181,12 +181,12 @@
 <li>When: a fixed delegation is created</li>
 <li>Then: the fixed delegation is created ✓</li>
 <li>Then: fixedDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
-<li>Then: fixedDelegation.header.delegatee = 11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs ✓</li>
+<li>Then: fixedDelegation.header.delegatee = 1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG ✓</li>
 <li>Then: fixedDelegation.header.discriminator = 2 ✓</li>
 <li>Then: fixedDelegation.amount = 100000000 ✓</li>
 <li>Then: fixedDelegation.expiryTs = 86400 ✓</li>
 </ul>
-<p>Result: ✓ success — 5038 CU · claims 6/6 ✓</p>
+<p>Result: ✓ success — 3538 CU · claims 6/6 ✓</p>
 <pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Subscriptions
@@ -197,7 +197,7 @@
     activate p2
     p2--&gt;&gt;p1: ✓
     deactivate p2
-    p1--&gt;&gt;p0: ✓ 5038cu
+    p1--&gt;&gt;p0: ✓ 3538cu
     deactivate p1
 </pre>
 
@@ -205,12 +205,12 @@
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     alice(["alice"]):::signer
-    F5Sy[("F5Sy…")]:::state
+    DiJw[("DiJw…")]:::state
     system["system"]:::program
     alice --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| F5Sy
+    Subscriptions --&gt;|writes| DiJw
     alice --&gt;|signs| system
-    system --&gt;|writes| F5Sy
+    system --&gt;|writes| DiJw
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -221,9 +221,9 @@
     system["system"]:::program
     alice[("alice")]:::state
     Subscriptions["Subscriptions"]:::program
-    F5Sy[("F5Sy…")]:::state
+    DiJw[("DiJw…")]:::state
     system --&gt;|owns| alice
-    Subscriptions --&gt;|owns| F5Sy
+    Subscriptions --&gt;|owns| DiJw
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -238,8 +238,8 @@
 <tbody>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
-<tr><td>F5Sy…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>1115…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>DiJw…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>1117…</td><td>·</td><td>·</td><td>-</td></tr>
 <tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
 </tbody>
 </table>
@@ -247,14 +247,14 @@
 <details>
 <summary>Call tree and logs</summary>
 <pre><code>A delegator creates a fixed delegation
-alice (5038cu)
-└─ Subscriptions::createFixedDelegation ✓ 5038cu
+alice (3538cu)
+└─ Subscriptions::createFixedDelegation ✓ 3538cu
    └─ system::createAccount ✓
 </code></pre>
 <pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
 Program 11111111111111111111111111111111 invoke [2]
 Program 11111111111111111111111111111111 success
-Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 5038 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 3538 of 200000 compute units
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>

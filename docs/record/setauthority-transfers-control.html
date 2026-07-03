@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-114a6eec.js";
+            window.path_to_searchindex_js = "searchindex-aa96a2fb.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -198,9 +198,9 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111B[("111B…")]:::state
     alice(["alice"]):::signer
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111B
     alice --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -210,10 +210,10 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111B[("111B…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    Record --&gt;|owns| 111F
+    Record --&gt;|owns| 111B
     system --&gt;|owns| alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -227,7 +227,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111B…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>bob</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
