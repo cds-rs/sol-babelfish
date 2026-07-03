@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-116b68c0.js";
+            window.path_to_searchindex_js = "searchindex-938aa96d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-d3c4b178.js"></script>
@@ -177,7 +177,7 @@
                     <main>
                         <h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
 <p>These pages are generated from the program’s Codama IDL: one per instruction, with its accounts and arguments. Nothing here was written by hand.</p>
-<p>This analysis is experimental. Everything below was reconstructed by machine from the IDL rather than declared by a human, so it arrives with all the cheerful confidence of a depressed robot who has worked out the odds and would rather not go on about it. Treat it as the output of an Infinite Improbability Drive: usually correct, occasionally improbable, and always worth checking against the executed examples nested under each instruction, which have at least had the decency to actually run.</p>
+<p>This analysis is experimental, and our propulsion deserves some of the credit. The Infinite Improbability Drive from the Heart of Gold was unavailable, so we are running on a drive salvaged from the ship of fools, a vessel crewed largely by telephone sanitizers and marketing executives; this may account for a certain amount of the improbability below. Everything here was reconstructed by machine from the IDL rather than declared by a human, so it arrives with the cheerful confidence of a depressed robot who has worked out the odds and would rather not go on about it. Anything surprising is worth checking against the executed examples nested under each instruction, which have at least had the decency to actually run.</p>
 <p>Don’t Panic.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="initsubscriptionauthority"><a class="header" href="#initsubscriptionauthority">initSubscriptionAuthority</a></h1>
@@ -449,12 +449,12 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <li>When: a fixed delegation is created</li>
 <li>Then: the fixed delegation is created ✓</li>
 <li>Then: fixedDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
-<li>Then: fixedDelegation.header.delegatee = 1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG ✓</li>
+<li>Then: fixedDelegation.header.delegatee = 11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs ✓</li>
 <li>Then: fixedDelegation.header.discriminator = 2 ✓</li>
 <li>Then: fixedDelegation.amount = 100000000 ✓</li>
 <li>Then: fixedDelegation.expiryTs = 86400 ✓</li>
 </ul>
-<p>Result: ✓ success — 3538 CU · claims 6/6 ✓</p>
+<p>Result: ✓ success — 5038 CU · claims 6/6 ✓</p>
 <pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Subscriptions
@@ -465,7 +465,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
     activate p2
     p2--&gt;&gt;p1: ✓
     deactivate p2
-    p1--&gt;&gt;p0: ✓ 3538cu
+    p1--&gt;&gt;p0: ✓ 5038cu
     deactivate p1
 </pre>
 
@@ -473,12 +473,12 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     alice(["alice"]):::signer
-    DiJw[("DiJw…")]:::state
+    F5Sy[("F5Sy…")]:::state
     system["system"]:::program
     alice --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| DiJw
+    Subscriptions --&gt;|writes| F5Sy
     alice --&gt;|signs| system
-    system --&gt;|writes| DiJw
+    system --&gt;|writes| F5Sy
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -489,9 +489,9 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
     system["system"]:::program
     alice[("alice")]:::state
     Subscriptions["Subscriptions"]:::program
-    DiJw[("DiJw…")]:::state
+    F5Sy[("F5Sy…")]:::state
     system --&gt;|owns| alice
-    Subscriptions --&gt;|owns| DiJw
+    Subscriptions --&gt;|owns| F5Sy
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -506,8 +506,8 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <tbody>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
-<tr><td>DiJw…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>1117…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>F5Sy…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>1115…</td><td>·</td><td>·</td><td>-</td></tr>
 <tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
 </tbody>
 </table>
@@ -515,14 +515,14 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <details>
 <summary>Call tree and logs</summary>
 <pre><code>A delegator creates a fixed delegation
-alice (3538cu)
-└─ Subscriptions::createFixedDelegation ✓ 3538cu
+alice (5038cu)
+└─ Subscriptions::createFixedDelegation ✓ 5038cu
    └─ system::createAccount ✓
 </code></pre>
 <pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
 Program 11111111111111111111111111111111 invoke [2]
 Program 11111111111111111111111111111111 success
-Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 3538 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 5038 of 200000 compute units
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>
@@ -563,7 +563,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <li>When: a recurring delegation is created</li>
 <li>Then: the recurring delegation is created ✓</li>
 <li>Then: recurringDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
-<li>Then: recurringDelegation.header.delegatee = 111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr ✓</li>
+<li>Then: recurringDelegation.header.delegatee = 1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG ✓</li>
 <li>Then: recurringDelegation.header.payer = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
 <li>Then: recurringDelegation.header.discriminator = 3 ✓</li>
 <li>Then: recurringDelegation.amountPerPeriod = 50000000 ✓</li>
@@ -572,7 +572,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <li>Then: recurringDelegation.amountPulledInPeriod = 0 ✓</li>
 <li>Then: recurringDelegation.currentPeriodStartTs = 0 ✓</li>
 </ul>
-<p>Result: ✓ success — 6563 CU · claims 10/10 ✓</p>
+<p>Result: ✓ success — 3563 CU · claims 10/10 ✓</p>
 <pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Subscriptions
@@ -583,7 +583,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
     activate p2
     p2--&gt;&gt;p1: ✓
     deactivate p2
-    p1--&gt;&gt;p0: ✓ 6563cu
+    p1--&gt;&gt;p0: ✓ 3563cu
     deactivate p1
 </pre>
 
@@ -591,12 +591,12 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     alice(["alice"]):::signer
-    7JW9[("7JW9…")]:::state
+    DiJw[("DiJw…")]:::state
     system["system"]:::program
     alice --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 7JW9
+    Subscriptions --&gt;|writes| DiJw
     alice --&gt;|signs| system
-    system --&gt;|writes| 7JW9
+    system --&gt;|writes| DiJw
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -607,9 +607,9 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
     system["system"]:::program
     alice[("alice")]:::state
     Subscriptions["Subscriptions"]:::program
-    7JW9[("7JW9…")]:::state
+    DiJw[("DiJw…")]:::state
     system --&gt;|owns| alice
-    Subscriptions --&gt;|owns| 7JW9
+    Subscriptions --&gt;|owns| DiJw
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -624,8 +624,8 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <tbody>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
-<tr><td>7JW9…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>111F…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>DiJw…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>1117…</td><td>·</td><td>·</td><td>-</td></tr>
 <tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
 </tbody>
 </table>
@@ -633,14 +633,14 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <details>
 <summary>Call tree and logs</summary>
 <pre><code>A delegator creates a recurring delegation
-alice (6563cu)
-└─ Subscriptions::createRecurringDelegation ✓ 6563cu
+alice (3563cu)
+└─ Subscriptions::createRecurringDelegation ✓ 3563cu
    └─ system::createAccount ✓
 </code></pre>
 <pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
 Program 11111111111111111111111111111111 invoke [2]
 Program 11111111111111111111111111111111 success
-Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 6563 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 3563 of 200000 compute units
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>
@@ -687,9 +687,9 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     alice(["alice"]):::signer
-    94BV[("94BV…")]:::state
+    2F6a[("2F6a…")]:::state
     alice --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 94BV
+    Subscriptions --&gt;|writes| 2F6a
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -713,7 +713,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </thead>
 <tbody>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>94BV…</td><td>·</td><td>✓</td><td>-</td></tr>
+<tr><td>2F6a…</td><td>·</td><td>✓</td><td>-</td></tr>
 </tbody>
 </table>
 </div>
@@ -2363,9 +2363,9 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     sponsor(["sponsor"]):::signer
-    94BV[("94BV…")]:::state
+    7JW9[("7JW9…")]:::state
     sponsor --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 94BV
+    Subscriptions --&gt;|writes| 7JW9
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -2389,7 +2389,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </thead>
 <tbody>
 <tr><td>sponsor</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>94BV…</td><td>·</td><td>✓</td><td>-</td></tr>
+<tr><td>7JW9…</td><td>·</td><td>✓</td><td>-</td></tr>
 <tr><td>4RDK…</td><td>·</td><td>·</td><td>-</td></tr>
 </tbody>
 </table>

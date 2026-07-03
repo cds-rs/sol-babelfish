@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-116b68c0.js";
+            window.path_to_searchindex_js = "searchindex-938aa96d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-d3c4b178.js"></script>
@@ -181,7 +181,7 @@
 <li>When: a recurring delegation is created</li>
 <li>Then: the recurring delegation is created ✓</li>
 <li>Then: recurringDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
-<li>Then: recurringDelegation.header.delegatee = 111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr ✓</li>
+<li>Then: recurringDelegation.header.delegatee = 1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG ✓</li>
 <li>Then: recurringDelegation.header.payer = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
 <li>Then: recurringDelegation.header.discriminator = 3 ✓</li>
 <li>Then: recurringDelegation.amountPerPeriod = 50000000 ✓</li>
@@ -190,7 +190,7 @@
 <li>Then: recurringDelegation.amountPulledInPeriod = 0 ✓</li>
 <li>Then: recurringDelegation.currentPeriodStartTs = 0 ✓</li>
 </ul>
-<p>Result: ✓ success — 6563 CU · claims 10/10 ✓</p>
+<p>Result: ✓ success — 3563 CU · claims 10/10 ✓</p>
 <pre class="mermaid">sequenceDiagram
     participant p0 as alice
     participant p1 as Subscriptions
@@ -201,7 +201,7 @@
     activate p2
     p2--&gt;&gt;p1: ✓
     deactivate p2
-    p1--&gt;&gt;p0: ✓ 6563cu
+    p1--&gt;&gt;p0: ✓ 3563cu
     deactivate p1
 </pre>
 
@@ -209,12 +209,12 @@
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     alice(["alice"]):::signer
-    7JW9[("7JW9…")]:::state
+    DiJw[("DiJw…")]:::state
     system["system"]:::program
     alice --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 7JW9
+    Subscriptions --&gt;|writes| DiJw
     alice --&gt;|signs| system
-    system --&gt;|writes| 7JW9
+    system --&gt;|writes| DiJw
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -225,9 +225,9 @@
     system["system"]:::program
     alice[("alice")]:::state
     Subscriptions["Subscriptions"]:::program
-    7JW9[("7JW9…")]:::state
+    DiJw[("DiJw…")]:::state
     system --&gt;|owns| alice
-    Subscriptions --&gt;|owns| 7JW9
+    Subscriptions --&gt;|owns| DiJw
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -242,8 +242,8 @@
 <tbody>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
-<tr><td>7JW9…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>111F…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>DiJw…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>1117…</td><td>·</td><td>·</td><td>-</td></tr>
 <tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
 </tbody>
 </table>
@@ -251,14 +251,14 @@
 <details>
 <summary>Call tree and logs</summary>
 <pre><code>A delegator creates a recurring delegation
-alice (6563cu)
-└─ Subscriptions::createRecurringDelegation ✓ 6563cu
+alice (3563cu)
+└─ Subscriptions::createRecurringDelegation ✓ 3563cu
    └─ system::createAccount ✓
 </code></pre>
 <pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
 Program 11111111111111111111111111111111 invoke [2]
 Program 11111111111111111111111111111111 success
-Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 6563 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 3563 of 200000 compute units
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>
