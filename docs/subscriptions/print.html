@@ -1,0 +1,2560 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>subscriptions</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-ad999287.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d3c4b178.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">subscriptions</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="initsubscriptionauthority"><a class="header" href="#initsubscriptionauthority">initSubscriptionAuthority</a></h1>
+<h2 id="accounts"><a class="header" href="#accounts">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>owner</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>✓</td><td>default (PDA)</td></tr>
+<tr><td>tokenMint</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>userAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>systemProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+<tr><td>tokenProgram</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>payer</td><td>✓</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-griefing-pre-fund-does-not-block-subscription-authority-initialization"><a class="header" href="#a-griefing-pre-fund-does-not-block-subscription-authority-initialization">A griefing pre-fund does not block subscription authority initialization</a></h1>
+<p><strong>Source:</strong> <code>tests/audit_high_3_1_3.rs</code> L70</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: the pre-funded PDA does not block creation (the fix holds) ✓</li>
+<li>Then: the subscription authority decodes to a struct ✓</li>
+</ul>
+<p>Result: ✓ success — 10077 CU · claims 2/2 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    participant p2 as system
+    participant p3 as token
+    p0-&gt;&gt;p1: initSubscriptionAuthority
+    activate p1
+    p1-&gt;&gt;p2: transferSol
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1-&gt;&gt;p2: allocate
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1-&gt;&gt;p2: assign
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1-&gt;&gt;p3: approve
+    activate p3
+    p3--&gt;&gt;p1: ✓ 126cu
+    deactivate p3
+    p1--&gt;&gt;p0: ✓ 10077cu
+    deactivate p1
+</pre>
+
+<h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    4RDK[("4RDK…")]:::state
+    3fVR[("3fVR…")]:::state
+    system["system"]:::program
+    token["token"]:::program
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 4RDK
+    Subscriptions --&gt;|writes| 3fVR
+    alice --&gt;|signs| system
+    system --&gt;|writes| 4RDK
+    token --&gt;|writes| 3fVR
+    token --&gt;|writes| 4RDK
+    alice --&gt;|signs| token
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    4RDK[("4RDK…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| 4RDK
+    token --&gt;|owns| 3fVR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-1"><a class="header" href="#accounts-1">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A griefing pre-fund does not block subscription authority initialization
+alice (10077cu)
+└─ Subscriptions::initSubscriptionAuthority ✓ 10077cu
+   ├─ system::transferSol ✓
+   ├─ system::allocate ✓
+   ├─ system::assign ✓
+   └─ token::approve ✓ 126cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 126 of 190066 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 10077 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-user-initializes-a-subscription-authority"><a class="header" href="#a-user-initializes-a-subscription-authority">A user initializes a subscription authority</a></h1>
+<p><strong>Source:</strong> <code>tests/test_initialize_subscription_authority.rs</code> L92</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: initSubscriptionAuthority executes source-free ✓</li>
+<li>Then: subscriptionAuthority.user = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+<li>Then: subscriptionAuthority.tokenMint = HhbhtPWNt5Rd2gvrjhGCekommdNQwVLY6ZMp3aBv4xtG ✓</li>
+<li>Then: subscriptionAuthority.payer = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+</ul>
+<p>Result: ✓ success — 7801 CU · claims 4/4 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    participant p2 as system
+    participant p3 as token
+    p0-&gt;&gt;p1: initSubscriptionAuthority
+    activate p1
+    p1-&gt;&gt;p2: createAccount
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1-&gt;&gt;p3: approve
+    activate p3
+    p3--&gt;&gt;p1: ✓ 126cu
+    deactivate p3
+    p1--&gt;&gt;p0: ✓ 7801cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-1"><a class="header" href="#authority-1">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    4RDK[("4RDK…")]:::state
+    3fVR[("3fVR…")]:::state
+    system["system"]:::program
+    token["token"]:::program
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 4RDK
+    Subscriptions --&gt;|writes| 3fVR
+    alice --&gt;|signs| system
+    system --&gt;|writes| 4RDK
+    token --&gt;|writes| 3fVR
+    token --&gt;|writes| 4RDK
+    alice --&gt;|signs| token
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-1"><a class="header" href="#ownership-1">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    4RDK[("4RDK…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| 4RDK
+    token --&gt;|owns| 3fVR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-2"><a class="header" href="#accounts-2">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A user initializes a subscription authority
+alice (7801cu)
+└─ Subscriptions::initSubscriptionAuthority ✓ 7801cu
+   ├─ system::createAccount ✓
+   └─ token::approve ✓ 126cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 126 of 192342 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 7801 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="createfixeddelegation"><a class="header" href="#createfixeddelegation">createFixedDelegation</a></h1>
+<h2 id="accounts-3"><a class="header" href="#accounts-3">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>delegator</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegationAccount</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>delegatee</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>systemProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+<tr><td>payer</td><td>✓</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments"><a class="header" href="#arguments">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>fixedDelegation</td><td>createFixedDelegationData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-delegator-creates-a-fixed-delegation"><a class="header" href="#a-delegator-creates-a-fixed-delegation">A delegator creates a fixed delegation</a></h1>
+<p><strong>Source:</strong> <code>tests/test_create_fixed_delegation.rs</code> L206</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: a fixed delegation is created</li>
+<li>Then: the fixed delegation is created ✓</li>
+<li>Then: fixedDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+<li>Then: fixedDelegation.header.delegatee = 111MqiH3tDg8KtkQYkCteems4APA9GgUsEFQavs8Vb ✓</li>
+<li>Then: fixedDelegation.header.discriminator = 2 ✓</li>
+<li>Then: fixedDelegation.amount = 100000000 ✓</li>
+<li>Then: fixedDelegation.expiryTs = 86400 ✓</li>
+</ul>
+<p>Result: ✓ success — 6538 CU · claims 6/6 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    participant p2 as system
+    p0-&gt;&gt;p1: createFixedDelegation
+    activate p1
+    p1-&gt;&gt;p2: createAccount
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1--&gt;&gt;p0: ✓ 6538cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-2"><a class="header" href="#authority-2">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    4gFR[("4gFR…")]:::state
+    system["system"]:::program
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 4gFR
+    alice --&gt;|signs| system
+    system --&gt;|writes| 4gFR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-2"><a class="header" href="#ownership-2">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    4gFR[("4gFR…")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| 4gFR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-4"><a class="header" href="#accounts-4">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>4gFR…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>111M…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A delegator creates a fixed delegation
+alice (6538cu)
+└─ Subscriptions::createFixedDelegation ✓ 6538cu
+   └─ system::createAccount ✓
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 6538 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="createrecurringdelegation"><a class="header" href="#createrecurringdelegation">createRecurringDelegation</a></h1>
+<h2 id="accounts-5"><a class="header" href="#accounts-5">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>delegator</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegationAccount</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>delegatee</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>systemProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+<tr><td>payer</td><td>✓</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-1"><a class="header" href="#arguments-1">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>recurringDelegation</td><td>createRecurringDelegationData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-delegator-creates-a-recurring-delegation"><a class="header" href="#a-delegator-creates-a-recurring-delegation">A delegator creates a recurring delegation</a></h1>
+<p><strong>Source:</strong> <code>tests/test_create_recurring_delegation.rs</code> L154</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: a recurring delegation is created</li>
+<li>Then: the recurring delegation is created ✓</li>
+<li>Then: recurringDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+<li>Then: recurringDelegation.header.delegatee = 111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK ✓</li>
+<li>Then: recurringDelegation.header.payer = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+<li>Then: recurringDelegation.header.discriminator = 3 ✓</li>
+<li>Then: recurringDelegation.amountPerPeriod = 50000000 ✓</li>
+<li>Then: recurringDelegation.periodLengthS = 86400 ✓</li>
+<li>Then: recurringDelegation.expiryTs = 604800 ✓</li>
+<li>Then: recurringDelegation.amountPulledInPeriod = 0 ✓</li>
+<li>Then: recurringDelegation.currentPeriodStartTs = 0 ✓</li>
+</ul>
+<p>Result: ✓ success — 5063 CU · claims 10/10 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    participant p2 as system
+    p0-&gt;&gt;p1: createRecurringDelegation
+    activate p1
+    p1-&gt;&gt;p2: createAccount
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1--&gt;&gt;p0: ✓ 5063cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-3"><a class="header" href="#authority-3">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    94BV[("94BV…")]:::state
+    system["system"]:::program
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 94BV
+    alice --&gt;|signs| system
+    system --&gt;|writes| 94BV
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-3"><a class="header" href="#ownership-3">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    94BV[("94BV…")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| 94BV
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-6"><a class="header" href="#accounts-6">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>94BV…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>111B…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A delegator creates a recurring delegation
+alice (5063cu)
+└─ Subscriptions::createRecurringDelegation ✓ 5063cu
+   └─ system::createAccount ✓
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 5063 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="revokedelegation"><a class="header" href="#revokedelegation">revokeDelegation</a></h1>
+<h2 id="accounts-7"><a class="header" href="#accounts-7">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>authority</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>delegationAccount</td><td>·</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="an-authority-revokes-a-delegation"><a class="header" href="#an-authority-revokes-a-delegation">An authority revokes a delegation</a></h1>
+<p><strong>Source:</strong> <code>tests/test_revoke_delegation.rs</code> L140</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: initSubscriptionAuthority executes source-free ✓</li>
+<li>When: a fixed delegation is created</li>
+<li>Then: createFixedDelegation succeeds ✓</li>
+<li>Then: fixedDelegation.header.discriminator = 2 ✓</li>
+<li>When: the authority revokes the delegation</li>
+<li>Then: revokeDelegation succeeds ✓</li>
+<li>Then: the delegation account is closed ✓</li>
+<li>Then: the rent flows back to Alice ✓</li>
+<li>Then: alice’s rent increased by approximately the delegation rent ✓</li>
+</ul>
+<p>Result: ✓ success — 289 CU · claims 7/7 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: revokeDelegation
+    activate p1
+    p1--&gt;&gt;p0: ✓ 289cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-4"><a class="header" href="#authority-4">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    GhBR[("GhBR…")]:::state
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| GhBR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-4"><a class="header" href="#ownership-4">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    system --&gt;|owns| alice
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-8"><a class="header" href="#accounts-8">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>GhBR…</td><td>·</td><td>✓</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>An authority revokes a delegation
+alice (289cu)
+└─ Subscriptions::revokeDelegation ✓ 289cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 289 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="transferfixed"><a class="header" href="#transferfixed">transferFixed</a></h1>
+<h2 id="accounts-9"><a class="header" href="#accounts-9">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>delegationPda</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegatorAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>receiverAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>tokenMint</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>tokenProgram</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegatee</td><td>✓</td><td>·</td><td>caller</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-2"><a class="header" href="#arguments-2">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>transferData</td><td>transferData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-delegatee-pulls-against-a-fixed-delegation"><a class="header" href="#a-delegatee-pulls-against-a-fixed-delegation">A delegatee pulls against a fixed delegation</a></h1>
+<p><strong>Source:</strong> <code>tests/test_transfer_fixed_delegation.rs</code> L160</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: initSubscriptionAuthority succeeds ✓</li>
+<li>When: a fixed delegation is created</li>
+<li>Then: createFixedDelegation succeeds ✓</li>
+<li>Then: Bob’s ATA starts empty ✓</li>
+<li>When: the delegatee pulls against the delegation</li>
+<li>Then: transfer_fixed succeeds ✓</li>
+<li>Then: Bob received 30 tokens ✓</li>
+<li>Then: fixedDelegation.amount = 20000000 ✓</li>
+<li>Then: fixedDelegation.expiryTs = 86400 ✓</li>
+</ul>
+<p>Result: ✓ success — 5554 CU · claims 7/7 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as bob
+    participant p1 as Subscriptions
+    participant p2 as token
+    p0-&gt;&gt;p1: transferFixed
+    activate p1
+    p1-&gt;&gt;p2: transferChecked
+    activate p2
+    p2--&gt;&gt;p1: ✓ 113cu
+    deactivate p2
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 5554cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-5"><a class="header" href="#authority-5">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    bob(["bob"]):::signer
+    token["token"]:::program
+    Subscriptions --&gt;|writes| B1u4
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 5UJQ
+    bob --&gt;|signs| Subscriptions
+    token --&gt;|writes| 3fVR
+    token --&gt;|writes| 5UJQ
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-5"><a class="header" href="#ownership-5">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    system["system"]:::program
+    bob[("bob")]:::state
+    Subscriptions --&gt;|owns| B1u4
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 5UJQ
+    system --&gt;|owns| bob
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-10"><a class="header" href="#accounts-10">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>B1u4…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>5UJQ…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>bob</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A delegatee pulls against a fixed delegation
+bob (5554cu)
+└─ Subscriptions::transferFixed ✓ 5554cu
+   ├─ token::transferChecked ✓ 113cu
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 113 of 195993 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 194605 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 5554 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-drift-tolerance-does-not-extend-a-fixed-transfer-past-expiry"><a class="header" href="#the-drift-tolerance-does-not-extend-a-fixed-transfer-past-expiry">The drift tolerance does not extend a fixed transfer past expiry</a></h1>
+<p><strong>Source:</strong> <code>tests/audit_regressions.rs</code> L216</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: a fixed delegation is created</li>
+<li>When: the delegatee pulls against the delegation</li>
+<li>Then: a pull past expiry is refused with no drift grace ✓</li>
+</ul>
+<p>Result: ✗ failed — 907 CU · claims 1/1 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as bob
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: transferFixed
+    activate p1
+    note over p1: 🚩 custom program error  0x80
+    p1--&gt;&gt;p0: ✗ 907cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-6"><a class="header" href="#authority-6">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    bob(["bob"]):::signer
+    Subscriptions --&gt;|writes| B1u4
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 5UJQ
+    bob --&gt;|signs| Subscriptions
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-6"><a class="header" href="#ownership-6">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    system["system"]:::program
+    bob[("bob")]:::state
+    Subscriptions --&gt;|owns| B1u4
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 5UJQ
+    system --&gt;|owns| bob
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-11"><a class="header" href="#accounts-11">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>B1u4…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>5UJQ…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>bob</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details open="">
+<summary>Call tree and logs</summary>
+<pre><code>The drift tolerance does not extend a fixed transfer past expiry
+bob (907cu)
+└─ Subscriptions::transferFixed ✗ 907cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 907 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program error: 0x80
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="transferrecurring"><a class="header" href="#transferrecurring">transferRecurring</a></h1>
+<h2 id="accounts-12"><a class="header" href="#accounts-12">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>delegationPda</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegatorAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>receiverAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>tokenMint</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>tokenProgram</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegatee</td><td>✓</td><td>·</td><td>caller</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-3"><a class="header" href="#arguments-3">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>transferData</td><td>transferData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-delegatee-pulls-against-a-recurring-delegation"><a class="header" href="#a-delegatee-pulls-against-a-recurring-delegation">A delegatee pulls against a recurring delegation</a></h1>
+<p><strong>Source:</strong> <code>tests/test_transfer_recurring_delegation.rs</code> L216</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: initSubscriptionAuthority succeeds ✓</li>
+<li>When: a recurring delegation is created</li>
+<li>Then: createRecurringDelegation succeeds ✓</li>
+<li>Then: Bob’s ATA starts empty ✓</li>
+<li>When: the delegatee pulls against the delegation</li>
+<li>Then: first pull succeeds ✓</li>
+<li>Then: Bob received 10 tokens ✓</li>
+<li>Then: 10 tokens pulled in the period ✓</li>
+<li>Then: the period start is the delegation start ✓</li>
+<li>When: the delegatee pulls against the delegation</li>
+<li>Then: second pull succeeds ✓</li>
+<li>Then: Bob received another 10 tokens ✓</li>
+<li>Then: 20 tokens pulled in the period ✓</li>
+<li>When: the delegatee pulls against the delegation</li>
+<li>Then: third pull succeeds ✓</li>
+<li>Then: Bob received a third 10 tokens ✓</li>
+<li>Then: 30 tokens pulled in the period ✓</li>
+</ul>
+<p>Result: ✓ success — 5665 CU · claims 13/13 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as bob
+    participant p1 as Subscriptions
+    participant p2 as token
+    p0-&gt;&gt;p1: transferRecurring
+    activate p1
+    p1-&gt;&gt;p2: transferChecked
+    activate p2
+    p2--&gt;&gt;p1: ✓ 113cu
+    deactivate p2
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 5665cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-7"><a class="header" href="#authority-7">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    bob(["bob"]):::signer
+    token["token"]:::program
+    Subscriptions --&gt;|writes| B1u4
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 5UJQ
+    bob --&gt;|signs| Subscriptions
+    token --&gt;|writes| 3fVR
+    token --&gt;|writes| 5UJQ
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-7"><a class="header" href="#ownership-7">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    system["system"]:::program
+    bob[("bob")]:::state
+    Subscriptions --&gt;|owns| B1u4
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 5UJQ
+    system --&gt;|owns| bob
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-13"><a class="header" href="#accounts-13">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>B1u4…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>5UJQ…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>bob</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A delegatee pulls against a recurring delegation
+bob (5665cu)
+└─ Subscriptions::transferRecurring ✓ 5665cu
+   ├─ token::transferChecked ✓ 113cu
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 113 of 195920 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 194496 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 5665 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-recurring-pull-before-the-delegation-period-begins-is-refused"><a class="header" href="#a-recurring-pull-before-the-delegation-period-begins-is-refused">A recurring pull before the delegation period begins is refused</a></h1>
+<p><strong>Source:</strong> <code>tests/audit_high_3_1_1.rs</code> L108</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: a recurring delegation is created</li>
+<li>Then: the recurring delegation is granted (it starts tomorrow) ✓</li>
+<li>When: the delegatee pulls against the delegation</li>
+<li>Then: the pre-start pull is refused ✓</li>
+</ul>
+<p>Result: ✗ failed — 949 CU · claims 2/2 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as bob
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: transferRecurring
+    activate p1
+    note over p1: 🚩 custom program error  0x197
+    p1--&gt;&gt;p0: ✗ 949cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-8"><a class="header" href="#authority-8">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    bob(["bob"]):::signer
+    Subscriptions --&gt;|writes| B1u4
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 5UJQ
+    bob --&gt;|signs| Subscriptions
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-8"><a class="header" href="#ownership-8">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    B1u4[("B1u4…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    5UJQ[("5UJQ…")]:::state
+    system["system"]:::program
+    bob[("bob")]:::state
+    Subscriptions --&gt;|owns| B1u4
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 5UJQ
+    system --&gt;|owns| bob
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-14"><a class="header" href="#accounts-14">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>B1u4…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>5UJQ…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>bob</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details open="">
+<summary>Call tree and logs</summary>
+<pre><code>A recurring pull before the delegation period begins is refused
+bob (949cu)
+└─ Subscriptions::transferRecurring ✗ 949cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 949 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program error: 0x197
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="closesubscriptionauthority"><a class="header" href="#closesubscriptionauthority">closeSubscriptionAuthority</a></h1>
+<h2 id="accounts-15"><a class="header" href="#accounts-15">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>user</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>receiver</td><td>·</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-user-closes-their-subscription-authority"><a class="header" href="#a-user-closes-their-subscription-authority">A user closes their subscription authority</a></h1>
+<p><strong>Source:</strong> <code>tests/test_close_subscription_authority.rs</code> L98</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: the user closes the subscription authority</li>
+<li>Then: Alice closes her own authority ✓</li>
+<li>Then: the authority account is gone or emptied ✓</li>
+<li>Then: Alice’s balance grew ✓</li>
+<li>Then: Alice recovers the rent (less fees) ✓</li>
+</ul>
+<p>Result: ✓ success — 1832 CU · claims 4/4 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: closeSubscriptionAuthority
+    activate p1
+    p1--&gt;&gt;p0: ✓ 1832cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-9"><a class="header" href="#authority-9">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    4RDK[("4RDK…")]:::state
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 4RDK
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-9"><a class="header" href="#ownership-9">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    system --&gt;|owns| alice
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-16"><a class="header" href="#accounts-16">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>✓</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A user closes their subscription authority
+alice (1832cu)
+└─ Subscriptions::closeSubscriptionAuthority ✓ 1832cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1832 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="createplan"><a class="header" href="#createplan">createPlan</a></h1>
+<h2 id="accounts-17"><a class="header" href="#accounts-17">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>tokenMint</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>systemProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+<tr><td>tokenProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-4"><a class="header" href="#arguments-4">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>planData</td><td>planData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-merchant-creates-a-subscription-plan"><a class="header" href="#a-merchant-creates-a-subscription-plan">A merchant creates a subscription plan</a></h1>
+<p><strong>Source:</strong> <code>tests/create_plan.rs</code> L52</p>
+<ul>
+<li>When: the merchant creates plan 1</li>
+<li>Then: createPlan executes source-free ✓</li>
+<li>Then: plan.owner = 4jnW4cX63scWb3VGDVaacYunDWNFsGERr3YYUKPuNxJp ✓</li>
+<li>Then: plan.data.planId = 1 ✓</li>
+<li>Then: plan.data.destinations[0] = 11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs ✓</li>
+</ul>
+<p>Result: ✓ success — 3527 CU · claims 4/4 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as merchant
+    participant p1 as Subscriptions
+    participant p2 as system
+    p0-&gt;&gt;p1: createPlan
+    activate p1
+    p1-&gt;&gt;p2: createAccount
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1--&gt;&gt;p0: ✓ 3527cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-10"><a class="header" href="#authority-10">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    merchant(["merchant"]):::signer
+    2PQu[("2PQu…")]:::state
+    system["system"]:::program
+    merchant --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 2PQu
+    merchant --&gt;|signs| system
+    system --&gt;|writes| 2PQu
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-10"><a class="header" href="#ownership-10">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    merchant[("merchant")]:::state
+    Subscriptions["Subscriptions"]:::program
+    2PQu[("2PQu…")]:::state
+    system --&gt;|owns| merchant
+    Subscriptions --&gt;|owns| 2PQu
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-18"><a class="header" href="#accounts-18">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A merchant creates a subscription plan
+merchant (3527cu)
+└─ Subscriptions::createPlan ✓ 3527cu
+   └─ system::createAccount ✓
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 3527 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="updateplan"><a class="header" href="#updateplan">updatePlan</a></h1>
+<h2 id="accounts-19"><a class="header" href="#accounts-19">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>owner</td><td>✓</td><td>·</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-5"><a class="header" href="#arguments-5">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>updatePlanData</td><td>updatePlanData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-merchant-updates-a-plan"><a class="header" href="#a-merchant-updates-a-plan">A merchant updates a plan</a></h1>
+<p><strong>Source:</strong> <code>tests/test_update_plan.rs</code> L126</p>
+<ul>
+<li>When: the merchant creates plan 1</li>
+<li>Then: staging createPlan should succeed ✓</li>
+<li>When: the owner updates the plan</li>
+<li>Then: the merchant sunsets its own plan ✓</li>
+<li>Then: plan.status = 0 ✓</li>
+<li>Then: plan.data.endTs = 5184000 ✓</li>
+<li>Then: plan.data.metadataUri = “https://example.com/updated.json” ✓</li>
+</ul>
+<p>Result: ✓ success — 1949 CU · claims 5/5 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as merchant
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: updatePlan
+    activate p1
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 1949cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-11"><a class="header" href="#authority-11">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    merchant(["merchant"]):::signer
+    2PQu[("2PQu…")]:::state
+    merchant --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 2PQu
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-11"><a class="header" href="#ownership-11">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    merchant[("merchant")]:::state
+    Subscriptions["Subscriptions"]:::program
+    2PQu[("2PQu…")]:::state
+    system --&gt;|owns| merchant
+    Subscriptions --&gt;|owns| 2PQu
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-20"><a class="header" href="#accounts-20">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A merchant updates a plan
+merchant (1949cu)
+└─ Subscriptions::updatePlan ✓ 1949cu
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 198212 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1949 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="deleteplan"><a class="header" href="#deleteplan">deletePlan</a></h1>
+<h2 id="accounts-21"><a class="header" href="#accounts-21">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>owner</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-merchant-deletes-a-plan"><a class="header" href="#a-merchant-deletes-a-plan">A merchant deletes a plan</a></h1>
+<p><strong>Source:</strong> <code>tests/test_delete_plan.rs</code> L118</p>
+<ul>
+<li>When: the merchant creates plan 1</li>
+<li>When: the owner updates the plan</li>
+<li>Then: the merchant sunsets the plan ✓</li>
+<li>Then: the plan account holds rent before deletion ✓</li>
+<li>When: the owner deletes the plan</li>
+<li>Then: the merchant deletes the expired plan ✓</li>
+<li>Then: the plan account is drained ✓</li>
+<li>Then: the merchant’s balance grew ✓</li>
+<li>Then: the reclaimed rent (less fees) lands with the owner ✓</li>
+</ul>
+<p>Result: ✓ success — 365 CU · claims 6/6 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as merchant
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: deletePlan
+    activate p1
+    p1--&gt;&gt;p0: ✓ 365cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-12"><a class="header" href="#authority-12">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    merchant(["merchant"]):::signer
+    2PQu[("2PQu…")]:::state
+    merchant --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 2PQu
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-12"><a class="header" href="#ownership-12">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    merchant[("merchant")]:::state
+    system --&gt;|owns| merchant
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-22"><a class="header" href="#accounts-22">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>✓</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A merchant deletes a plan
+merchant (365cu)
+└─ Subscriptions::deletePlan ✓ 365cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 365 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="transfersubscription"><a class="header" href="#transfersubscription">transferSubscription</a></h1>
+<h2 id="accounts-23"><a class="header" href="#accounts-23">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>subscriptionPda</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>delegatorAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>receiverAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>caller</td><td>✓</td><td>·</td><td>caller</td></tr>
+<tr><td>tokenMint</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>tokenProgram</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-6"><a class="header" href="#arguments-6">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>transferData</td><td>transferData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-ghost-plan-cannot-extend-the-pull-window-past-the-original-agreement"><a class="header" href="#a-ghost-plan-cannot-extend-the-pull-window-past-the-original-agreement">A ghost plan cannot extend the pull window past the original agreement</a></h1>
+<p><strong>Source:</strong> <code>tests/audit_high_ghost_plan.rs</code> L202</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: the subscriber subscribes</li>
+<li>When: the owner updates the plan</li>
+<li>When: the owner deletes the plan</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: a puller transfers against the subscription</li>
+<li>Then: the post-original-end pull is refused ✓</li>
+</ul>
+<p>Result: ✗ failed — 1063 CU · claims 1/1 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as merchant
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: transferSubscription
+    activate p1
+    note over p1: 🚩 custom program error  0x207
+    p1--&gt;&gt;p0: ✗ 1063cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-13"><a class="header" href="#authority-13">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    6pQD[("6pQD…")]:::state
+    3fVR[("3fVR…")]:::state
+    3FuY[("3FuY…")]:::state
+    merchant(["merchant"]):::signer
+    Subscriptions --&gt;|writes| 6pQD
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 3FuY
+    merchant --&gt;|signs| Subscriptions
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-13"><a class="header" href="#ownership-13">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    6pQD[("6pQD…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    3FuY[("3FuY…")]:::state
+    system["system"]:::program
+    merchant[("merchant")]:::state
+    Subscriptions --&gt;|owns| 6pQD
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 3FuY
+    system --&gt;|owns| merchant
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-24"><a class="header" href="#accounts-24">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>6pQD…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>3FuY…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details open="">
+<summary>Call tree and logs</summary>
+<pre><code>A ghost plan cannot extend the pull window past the original agreement
+merchant (1063cu)
+└─ Subscriptions::transferSubscription ✗ 1063cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1063 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program error: 0x207
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-ghost-plan-cannot-inflate-the-pull-amount-against-a-subscriber"><a class="header" href="#a-ghost-plan-cannot-inflate-the-pull-amount-against-a-subscriber">A ghost plan cannot inflate the pull amount against a subscriber</a></h1>
+<p><strong>Source:</strong> <code>tests/audit_high_ghost_plan.rs</code> L164</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: the subscriber subscribes</li>
+<li>When: the owner updates the plan</li>
+<li>When: the owner deletes the plan</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: a puller transfers against the subscription</li>
+<li>Then: the inflated ghost-plan pull is refused ✓</li>
+</ul>
+<p>Result: ✗ failed — 1063 CU · claims 1/1 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as merchant
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: transferSubscription
+    activate p1
+    note over p1: 🚩 custom program error  0x207
+    p1--&gt;&gt;p0: ✗ 1063cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-14"><a class="header" href="#authority-14">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    6pQD[("6pQD…")]:::state
+    3fVR[("3fVR…")]:::state
+    3FuY[("3FuY…")]:::state
+    merchant(["merchant"]):::signer
+    Subscriptions --&gt;|writes| 6pQD
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 3FuY
+    merchant --&gt;|signs| Subscriptions
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-14"><a class="header" href="#ownership-14">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    6pQD[("6pQD…")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    3FuY[("3FuY…")]:::state
+    system["system"]:::program
+    merchant[("merchant")]:::state
+    Subscriptions --&gt;|owns| 6pQD
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 3FuY
+    system --&gt;|owns| merchant
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-25"><a class="header" href="#accounts-25">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>6pQD…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>3FuY…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details open="">
+<summary>Call tree and logs</summary>
+<pre><code>A ghost plan cannot inflate the pull amount against a subscriber
+merchant (1063cu)
+└─ Subscriptions::transferSubscription ✗ 1063cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1063 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program error: 0x207
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-puller-transfers-against-a-subscription"><a class="header" href="#a-puller-transfers-against-a-subscription">A puller transfers against a subscription</a></h1>
+<p><strong>Source:</strong> <code>tests/test_transfer_subscription.rs</code> L199</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: init authority succeeds ✓</li>
+<li>When: the merchant creates plan 1</li>
+<li>Then: create plan succeeds ✓</li>
+<li>When: the subscriber subscribes</li>
+<li>Then: subscribe succeeds ✓</li>
+<li>Then: the merchant ATA starts empty ✓</li>
+<li>When: a puller transfers against the subscription</li>
+<li>Then: the merchant received 10 tokens ✓</li>
+<li>Then: the pulled-in-period is 10 tokens ✓</li>
+</ul>
+<p>Result: ✓ success — 5973 CU · claims 6/6 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as merchant
+    participant p1 as Subscriptions
+    participant p2 as token
+    p0-&gt;&gt;p1: transferSubscription
+    activate p1
+    p1-&gt;&gt;p2: transferChecked
+    activate p2
+    p2--&gt;&gt;p1: ✓ 113cu
+    deactivate p2
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 5973cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-15"><a class="header" href="#authority-15">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    Subscription[("Subscription")]:::state
+    3fVR[("3fVR…")]:::state
+    3FuY[("3FuY…")]:::state
+    merchant(["merchant"]):::signer
+    token["token"]:::program
+    Subscriptions --&gt;|writes| Subscription
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 3FuY
+    merchant --&gt;|signs| Subscriptions
+    token --&gt;|writes| 3fVR
+    token --&gt;|writes| 3FuY
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-15"><a class="header" href="#ownership-15">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    Subscription[("Subscription")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    3FuY[("3FuY…")]:::state
+    system["system"]:::program
+    merchant[("merchant")]:::state
+    Subscriptions --&gt;|owns| Subscription
+    token --&gt;|owns| 3fVR
+    token --&gt;|owns| 3FuY
+    system --&gt;|owns| merchant
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-26"><a class="header" href="#accounts-26">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>Subscription</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>Plan</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>3FuY…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>USDC mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A puller transfers against a subscription
+merchant (5973cu)
+└─ Subscriptions::transferSubscription ✓ 5973cu
+   ├─ token::transferChecked ✓ 113cu
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 113 of 195646 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 194189 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 5973 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="subscribe"><a class="header" href="#subscribe">subscribe</a></h1>
+<h2 id="accounts-27"><a class="header" href="#accounts-27">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>subscriber</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>merchant</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>subscriptionPda</td><td>·</td><td>✓</td><td>default (PDA)</td></tr>
+<tr><td>subscriptionAuthorityPda</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>systemProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+<tr><td>payer</td><td>✓</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="arguments-7"><a class="header" href="#arguments-7">Arguments</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Argument</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>subscribeData</td><td>subscribeData</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-subscriber-subscribes-to-a-plan"><a class="header" href="#a-subscriber-subscribes-to-a-plan">A subscriber subscribes to a plan</a></h1>
+<p><strong>Source:</strong> <code>tests/test_subscribe.rs</code> L181</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: the subscriber subscribes</li>
+<li>Then: subscribe executes source-free ✓</li>
+<li>Then: subscriptionDelegation.header.discriminator = 4 ✓</li>
+<li>Then: subscriptionDelegation.header.delegator = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+<li>Then: subscriptionDelegation.header.delegatee = 2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp ✓</li>
+<li>Then: subscriptionDelegation.header.payer = 2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT ✓</li>
+<li>Then: subscriptionDelegation.amountPulledInPeriod = 0 ✓</li>
+<li>Then: subscriptionDelegation.expiresAtTs = 0 ✓</li>
+</ul>
+<p>Result: ✓ success — 9563 CU · claims 7/7 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    participant p2 as system
+    p0-&gt;&gt;p1: subscribe
+    activate p1
+    p1-&gt;&gt;p2: createAccount
+    activate p2
+    p2--&gt;&gt;p1: ✓
+    deactivate p2
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 9563cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-16"><a class="header" href="#authority-16">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    Subscription[("Subscription")]:::state
+    system["system"]:::program
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| Subscription
+    alice --&gt;|signs| system
+    system --&gt;|writes| Subscription
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-16"><a class="header" href="#ownership-16">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    Subscription[("Subscription")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| Subscription
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-28"><a class="header" href="#accounts-28">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>merchant</td><td>·</td><td>·</td><td>system</td></tr>
+<tr><td>Plan</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>Subscription</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A subscriber subscribes to a plan
+alice (9563cu)
+└─ Subscriptions::subscribe ✓ 9563cu
+   ├─ system::createAccount ✓
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program 11111111111111111111111111111111 invoke [2]
+Program 11111111111111111111111111111111 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 190600 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 9563 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="cancelsubscription"><a class="header" href="#cancelsubscription">cancelSubscription</a></h1>
+<h2 id="accounts-29"><a class="header" href="#accounts-29">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>subscriber</td><td>✓</td><td>·</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>subscriptionPda</td><td>·</td><td>✓</td><td>default (PDA)</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-subscriber-cancels-their-subscription"><a class="header" href="#a-subscriber-cancels-their-subscription">A subscriber cancels their subscription</a></h1>
+<p><strong>Source:</strong> <code>tests/test_cancel_subscription.rs</code> L149</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: the subscriber subscribes</li>
+<li>When: the subscriber cancels</li>
+<li>Then: the cancelled subscription gets an end-of-period expiry ✓</li>
+</ul>
+<p>Result: ✓ success — 1957 CU · claims 1/1 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: cancelSubscription
+    activate p1
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 1957cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-17"><a class="header" href="#authority-17">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    6pQD[("6pQD…")]:::state
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 6pQD
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-17"><a class="header" href="#ownership-17">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    6pQD[("6pQD…")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| 6pQD
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-30"><a class="header" href="#accounts-30">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>6pQD…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A subscriber cancels their subscription
+alice (1957cu)
+└─ Subscriptions::cancelSubscription ✓ 1957cu
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 198203 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1957 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="resumesubscription"><a class="header" href="#resumesubscription">resumeSubscription</a></h1>
+<h2 id="accounts-31"><a class="header" href="#accounts-31">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>subscriber</td><td>✓</td><td>·</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>subscriptionPda</td><td>·</td><td>✓</td><td>default (PDA)</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>default (PDA)</td></tr>
+<tr><td>selfProgram</td><td>·</td><td>·</td><td>default (fixed key)</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-subscriber-resumes-a-cancelled-subscription"><a class="header" href="#a-subscriber-resumes-a-cancelled-subscription">A subscriber resumes a cancelled subscription</a></h1>
+<p><strong>Source:</strong> <code>tests/test_resume_subscription.rs</code> L128</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: the merchant creates plan 1</li>
+<li>When: the subscriber subscribes</li>
+<li>When: the subscriber cancels</li>
+<li>Then: the cancelled subscription has an expiry ✓</li>
+<li>When: the subscriber resumes</li>
+<li>Then: the expiry is cleared ✓</li>
+<li>Then: period start preserved ✓</li>
+<li>Then: amount pulled preserved ✓</li>
+</ul>
+<p>Result: ✓ success — 1926 CU · claims 4/4 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: resumeSubscription
+    activate p1
+    p1-&gt;&gt;p1: ?
+    activate p1
+    p1--&gt;&gt;p1: ✓ 137cu
+    deactivate p1
+    p1--&gt;&gt;p0: ✓ 1926cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-18"><a class="header" href="#authority-18">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    6pQD[("6pQD…")]:::state
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 6pQD
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-18"><a class="header" href="#ownership-18">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    Subscriptions["Subscriptions"]:::program
+    6pQD[("6pQD…")]:::state
+    system --&gt;|owns| alice
+    Subscriptions --&gt;|owns| 6pQD
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-32"><a class="header" href="#accounts-32">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>2PQu…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>6pQD…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>BXjf…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A subscriber resumes a cancelled subscription
+alice (1926cu)
+└─ Subscriptions::resumeSubscription ✓ 1926cu
+   └─ Subscriptions::? ✓ 137cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 137 of 198234 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1926 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="revokesubscriptionauthority"><a class="header" href="#revokesubscriptionauthority">revokeSubscriptionAuthority</a></h1>
+<h2 id="accounts-33"><a class="header" href="#accounts-33">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>user</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>userAta</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>tokenMint</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>tokenProgram</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>✓</td><td>default (PDA)</td></tr>
+<tr><td>receiver</td><td>·</td><td>✓</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="a-user-revokes-their-subscription-authority"><a class="header" href="#a-user-revokes-their-subscription-authority">A user revokes their subscription authority</a></h1>
+<p><strong>Source:</strong> <code>tests/test_revoke_subscription_authority.rs</code> L92</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>Then: the ATA is delegated before revoke ✓</li>
+<li>Then: the ATA is delegated for the full amount ✓</li>
+<li>When: the user revokes the subscription authority</li>
+<li>Then: Alice revokes her subscription authority ✓</li>
+<li>Then: the delegate is cleared after revoke ✓</li>
+<li>Then: the delegated amount is zeroed after revoke ✓</li>
+</ul>
+<p>Result: ✓ success — 7978 CU · claims 5/5 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as alice
+    participant p1 as Subscriptions
+    participant p2 as token
+    p0-&gt;&gt;p1: revokeSubscriptionAuthority
+    activate p1
+    p1-&gt;&gt;p2: revoke
+    activate p2
+    p2--&gt;&gt;p1: ✓ 108cu
+    deactivate p2
+    p1--&gt;&gt;p0: ✓ 7978cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-19"><a class="header" href="#authority-19">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    alice(["alice"]):::signer
+    3fVR[("3fVR…")]:::state
+    4RDK[("4RDK…")]:::state
+    token["token"]:::program
+    alice --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| 3fVR
+    Subscriptions --&gt;|writes| 4RDK
+    token --&gt;|writes| 3fVR
+    alice --&gt;|signs| token
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-19"><a class="header" href="#ownership-19">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    alice[("alice")]:::state
+    token["token"]:::program
+    3fVR[("3fVR…")]:::state
+    system --&gt;|owns| alice
+    token --&gt;|owns| 3fVR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-34"><a class="header" href="#accounts-34">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
+<tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>✓</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>A user revokes their subscription authority
+alice (7978cu)
+└─ Subscriptions::revokeSubscriptionAuthority ✓ 7978cu
+   └─ token::revoke ✓ 108cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 108 of 193853 compute units
+Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 7978 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="revokeabandoneddelegation"><a class="header" href="#revokeabandoneddelegation">revokeAbandonedDelegation</a></h1>
+<h2 id="accounts-35"><a class="header" href="#accounts-35">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>payer</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>delegationAccount</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="an-abandoned-delegation-is-revoked"><a class="header" href="#an-abandoned-delegation-is-revoked">An abandoned delegation is revoked</a></h1>
+<p><strong>Source:</strong> <code>tests/test_revoke_abandoned_delegation.rs</code> L136</p>
+<ul>
+<li>When: the user initializes a subscription authority</li>
+<li>When: a fixed delegation is created</li>
+<li>When: the user closes the subscription authority</li>
+<li>When: an abandoned delegation is revoked</li>
+<li>Then: the abandoned delegation is revoked ✓</li>
+<li>Then: the delegation account is gone ✓</li>
+<li>Then: the sponsor recovered the rent ✓</li>
+</ul>
+<p>Result: ✓ success — 305 CU · claims 3/3 ✓</p>
+<pre class="mermaid">sequenceDiagram
+    participant p0 as sponsor
+    participant p1 as Subscriptions
+    p0-&gt;&gt;p1: revokeAbandonedDelegation
+    activate p1
+    p1--&gt;&gt;p0: ✓ 305cu
+    deactivate p1
+</pre>
+
+<h2 id="authority-20"><a class="header" href="#authority-20">Authority</a></h2>
+<pre class="mermaid">flowchart LR
+    Subscriptions["Subscriptions"]:::program
+    sponsor(["sponsor"]):::signer
+    GhBR[("GhBR…")]:::state
+    sponsor --&gt;|signs| Subscriptions
+    Subscriptions --&gt;|writes| GhBR
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="ownership-20"><a class="header" href="#ownership-20">Ownership</a></h2>
+<pre class="mermaid">flowchart LR
+    system["system"]:::program
+    sponsor[("sponsor")]:::state
+    system --&gt;|owns| sponsor
+    classDef program fill:#dae8fc,stroke:#6c8ebf;
+    classDef signer fill:#d5e8d4,stroke:#82b366;
+    classDef state fill:#ffe6cc,stroke:#d79b00;
+</pre>
+
+<h2 id="accounts-36"><a class="header" href="#accounts-36">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
+</thead>
+<tbody>
+<tr><td>sponsor</td><td>✓</td><td>✓</td><td>system</td></tr>
+<tr><td>GhBR…</td><td>·</td><td>✓</td><td>-</td></tr>
+<tr><td>4RDK…</td><td>·</td><td>·</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Call tree and logs</summary>
+<pre><code>An abandoned delegation is revoked
+sponsor (305cu)
+└─ Subscriptions::revokeAbandonedDelegation ✓ 305cu
+</code></pre>
+<pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 305 of 200000 compute units
+Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
+</code></pre>
+</details>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="revokeabandonedsubscription"><a class="header" href="#revokeabandonedsubscription">revokeAbandonedSubscription</a></h1>
+<h2 id="accounts-37"><a class="header" href="#accounts-37">Accounts</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Account</th><th>Signer</th><th>Writable</th><th>Supplied</th></tr>
+</thead>
+<tbody>
+<tr><td>payer</td><td>✓</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAccount</td><td>·</td><td>✓</td><td>caller</td></tr>
+<tr><td>subscriptionAuthority</td><td>·</td><td>·</td><td>caller</td></tr>
+<tr><td>planPda</td><td>·</td><td>·</td><td>caller</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="errors"><a class="header" href="#errors">Errors</a></h1>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Code</th><th>Name</th><th>Message</th></tr>
+</thead>
+<tbody>
+<tr><td>100</td><td>notSigner</td><td>Account must be a signer</td></tr>
+<tr><td>101</td><td>invalidAddress</td><td>Invalid account address</td></tr>
+<tr><td>102</td><td>invalidEscrowPda</td><td>Invalid escrow PDA derivation</td></tr>
+<tr><td>103</td><td>invalidSubscriptionAuthorityPda</td><td>Invalid subscription-authority PDA derivation</td></tr>
+<tr><td>104</td><td>notSystemProgram</td><td>Expected system program</td></tr>
+<tr><td>105</td><td>invalidTokenProgram</td><td>Token Program does not match other accounts</td></tr>
+<tr><td>106</td><td>invalidToken2022MintAccountData</td><td>Invalid Token-2022 mint account data</td></tr>
+<tr><td>107</td><td>invalidToken2022TokenAccountData</td><td>Invalid Token-2022 token account data</td></tr>
+<tr><td>108</td><td>invalidAssociatedTokenAccountDerivedAddress</td><td>Invalid associated token account address</td></tr>
+<tr><td>109</td><td>invalidTokenSplMintAccountData</td><td>Invalid SPL Token mint account data</td></tr>
+<tr><td>110</td><td>invalidTokenSplTokenAccountData</td><td>Invalid SPL Token account data</td></tr>
+<tr><td>111</td><td>invalidAccountData</td><td>Invalid account data</td></tr>
+<tr><td>112</td><td>invalidInstructionData</td><td>Invalid instruction data</td></tr>
+<tr><td>113</td><td>notEnoughAccountKeys</td><td>Not enough account keys provided</td></tr>
+<tr><td>114</td><td>invalidInstruction</td><td>Invalid instruction</td></tr>
+<tr><td>115</td><td>arithmeticOverflow</td><td>Arithmetic Overflow</td></tr>
+<tr><td>116</td><td>arithmeticUnderflow</td><td>Arithmetic Underflow</td></tr>
+<tr><td>117</td><td>invalidAccountDiscriminator</td><td>Invalid account discriminator</td></tr>
+<tr><td>118</td><td>mintHasConfidentialTransfer</td><td>Mint has ConfidentialTransfer extension</td></tr>
+<tr><td>119</td><td>mintHasNonTransferable</td><td>Mint has NonTransferable extension</td></tr>
+<tr><td>120</td><td>mintHasPermanentDelegate</td><td>Mint has PermanentDelegate extension</td></tr>
+<tr><td>121</td><td>mintHasTransferHook</td><td>Mint has TransferHook extension</td></tr>
+<tr><td>122</td><td>mintHasTransferFee</td><td>Mint has TransferFee extension</td></tr>
+<tr><td>123</td><td>mintHasMintCloseAuthority</td><td>Mint has MintCloseAuthority extension</td></tr>
+<tr><td>124</td><td>mintHasPausable</td><td>Mint has Pausable extension</td></tr>
+<tr><td>125</td><td>mintMismatch</td><td>Token mint mismatch</td></tr>
+<tr><td>126</td><td>invalidDelegatePda</td><td>Invalid delegation PDA derivation</td></tr>
+<tr><td>127</td><td>invalidHeaderData</td><td>Invalid header data</td></tr>
+<tr><td>128</td><td>delegationExpired</td><td>Delegation has expired</td></tr>
+<tr><td>129</td><td>invalidAmount</td><td>Invalid amount specified</td></tr>
+<tr><td>130</td><td>unauthorized</td><td>Caller not authorized for this action</td></tr>
+<tr><td>131</td><td>accountNotWritable</td><td>Account must be writable</td></tr>
+<tr><td>132</td><td>ataOwnerMismatch</td><td>Token account owner does not match expected</td></tr>
+<tr><td>133</td><td>delegationVersionMismatch</td><td>Delegation header version is not compatible</td></tr>
+<tr><td>134</td><td>migrationRequired</td><td>Account requires explicit migration</td></tr>
+<tr><td>135</td><td>delegationAlreadyExists</td><td>Delegation account already exists</td></tr>
+<tr><td>136</td><td>staleSubscriptionAuthority</td><td>Delegation init_id does not match current SubscriptionAuthority</td></tr>
+<tr><td>137</td><td>transferHookTooManyAccounts</td><td>Too many transfer hook accounts provided</td></tr>
+<tr><td>300</td><td>amountExceedsLimit</td><td>Transfer amount exceeds delegation limit</td></tr>
+<tr><td>301</td><td>fixedDelegationExpiryInPast</td><td>Expiry time specified is less than current time</td></tr>
+<tr><td>302</td><td>fixedDelegationAmountZero</td><td>zero amount specified</td></tr>
+<tr><td>400</td><td>amountExceedsPeriodLimit</td><td>Transfer amount exceeds period limit</td></tr>
+<tr><td>401</td><td>periodNotElapsed</td><td>Period has not elapsed yet</td></tr>
+<tr><td>402</td><td>invalidPeriodLength</td><td>Invalid Period length</td></tr>
+<tr><td>403</td><td>invalidPayerData</td><td>Payer provided does not match delegation</td></tr>
+<tr><td>404</td><td>recurringDelegationStartTimeInPast</td><td>Past start time specified</td></tr>
+<tr><td>405</td><td>recurringDelegationStartTimeGreaterThanExpiry</td><td>start time specified is greater than expiry</td></tr>
+<tr><td>406</td><td>recurringDelegationAmountZero</td><td>zero amount specified</td></tr>
+<tr><td>407</td><td>delegationNotStarted</td><td>Delegation period has not started yet</td></tr>
+<tr><td>408</td><td>recurringDelegationStartOnLandingRequiresExpiry</td><td>start_ts of 0 (start on landing) requires a non-zero expiry</td></tr>
+<tr><td>500</td><td>planSunset</td><td>Plan is in sunset status</td></tr>
+<tr><td>501</td><td>planExpired</td><td>Plan has expired</td></tr>
+<tr><td>502</td><td>invalidPlanPda</td><td>Invalid Plan PDA derivation</td></tr>
+<tr><td>503</td><td>invalidSubscriptionPda</td><td>Invalid subscription PDA derivation</td></tr>
+<tr><td>504</td><td>notPlanOwner</td><td>Caller is not the plan owner</td></tr>
+<tr><td>505</td><td>subscriptionPlanMismatch</td><td>Subscription does not belong to this plan</td></tr>
+<tr><td>506</td><td>unauthorizedDestination</td><td>Destination not in plan whitelist</td></tr>
+<tr><td>507</td><td>invalidNumDestinations</td><td>No valid destinations provided</td></tr>
+<tr><td>508</td><td>subscriptionCancelled</td><td>Subscription cancelled and past valid period</td></tr>
+<tr><td>509</td><td>subscriptionAlreadyCancelled</td><td>Subscription already cancelled</td></tr>
+<tr><td>510</td><td>subscriptionNotCancelled</td><td>Subscription is not cancelled</td></tr>
+<tr><td>511</td><td>invalidEndTs</td><td>End timestamp must be zero or in the future</td></tr>
+<tr><td>512</td><td>invalidPlanStatus</td><td>Invalid plan status value</td></tr>
+<tr><td>513</td><td>planImmutableAfterSunset</td><td>Plan cannot be updated after sunset</td></tr>
+<tr><td>514</td><td>sunsetRequiresEndTs</td><td>Sunset requires a non-zero end timestamp</td></tr>
+<tr><td>515</td><td>planNotExpired</td><td>Plan must be expired to delete</td></tr>
+<tr><td>516</td><td>planClosed</td><td>Plan account has been closed</td></tr>
+<tr><td>517</td><td>alreadySubscribed</td><td>Already subscribed to this plan</td></tr>
+<tr><td>518</td><td>planAlreadyExists</td><td>Plan account already exists</td></tr>
+<tr><td>519</td><td>planTermsMismatch</td><td>Subscription plan terms do not match the current plan</td></tr>
+<tr><td>520</td><td>planEndTsCannotExtend</td><td>A finite plan end timestamp can only be shortened, not removed or extended</td></tr>
+<tr><td>600</td><td>invalidEventAuthority</td><td>Invalid event authority PDA</td></tr>
+<tr><td>601</td><td>invalidEventData</td><td>Invalid event data</td></tr>
+<tr><td>602</td><td>invalidEventTag</td><td>Invalid event tag prefix</td></tr>
+<tr><td>603</td><td>invalidEventDiscriminator</td><td>Unknown event discriminator</td></tr>
+<tr><td>604</td><td>invalidSelfProgram</td><td>Self program account does not match this program</td></tr>
+</tbody>
+</table>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-ccf746f1.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
