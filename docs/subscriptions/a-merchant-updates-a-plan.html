@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-3b16a043.js";
+            window.path_to_searchindex_js = "searchindex-187cd171.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d3c4b178.js"></script>
+        <script src="toc-0f00a0ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="a-merchant-updates-a-plan"><a class="header" href="#a-merchant-updates-a-plan">A merchant updates a plan</a></h1>
-<p><strong>Source:</strong> <code>tests/test_update_plan.rs</code> L126</p>
+<p><strong>Source:</strong> <code>subscriptions/tests/test_update_plan.rs</code> L126</p>
 <ul>
 <li>When: the merchant creates plan 1</li>
 <li>Then: staging createPlan should succeed ✓</li>
@@ -191,7 +191,7 @@
     participant p1 as Subscriptions
     p0-&gt;&gt;p1: updatePlan
     activate p1
-    p1-&gt;&gt;p1: ?
+    p1-&gt;&gt;p1: emit:planUpdatedEvent
     activate p1
     p1--&gt;&gt;p1: ✓ 137cu
     deactivate p1
@@ -203,9 +203,11 @@
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     merchant(["merchant"]):::signer
-    2PQu[("2PQu…")]:::state
+    planmerchant1[("plan(merchant, 1)")]:::state
+    eventAuthority(["eventAuthority"]):::signer
     merchant --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 2PQu
+    Subscriptions --&gt;|writes| planmerchant1
+    eventAuthority --&gt;|signs| Subscriptions
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -216,9 +218,9 @@
     system["system"]:::program
     merchant[("merchant")]:::state
     Subscriptions["Subscriptions"]:::program
-    2PQu[("2PQu…")]:::state
+    planmerchant1[("plan(merchant, 1)")]:::state
     system --&gt;|owns| merchant
-    Subscriptions --&gt;|owns| 2PQu
+    Subscriptions --&gt;|owns| planmerchant1
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -232,8 +234,8 @@
 </thead>
 <tbody>
 <tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>2PQu…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>plan(merchant, 1)</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>system</td></tr>
 <tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 </tbody>
 </table>
@@ -243,7 +245,7 @@
 <pre><code>A merchant updates a plan
 merchant (1949cu)
 └─ Subscriptions::updatePlan ✓ 1949cu
-   └─ Subscriptions::? ✓ 137cu
+   └─ Subscriptions::emit:planUpdatedEvent ✓ 137cu
 </code></pre>
 <pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
@@ -253,16 +255,93 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1949 of 200000 com
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- updatePlan ---
+let program_id: Pubkey = pubkey!("De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44");
+let owner: Pubkey = pubkey!("4jnW4cX63scWb3VGDVaacYunDWNFsGERr3YYUKPuNxJp"); // merchant: this scenario's value; supply your own
+let plan_pda: Pubkey = pubkey!("2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp"); // plan(merchant, 1): this scenario's value; supply your own
+let event_authority = Pubkey::find_program_address(&amp;[b"event_authority"], &amp;program_id).0;
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new_readonly(owner, true), // owner
+        AccountMeta::new(plan_pda, false), // planPda
+        AccountMeta::new_readonly(event_authority, false), // eventAuthority
+        AccountMeta::new_readonly(program_id, false), // selfProgram
+    ],
+    // discriminator ++ borsh(updatePlanData: {status: 0, endTs: 5184000, pullers: [1111…, 1111…, 1111…, 1111…], metadataUri: "https://example.com/updated.json"})
+    data: vec![0x08, 0x00, 0x00, 0x1a, 0x4f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x68, 0x74, 0x74, 0x70, 0x73, 0x3a, 0x2f, 0x2f, 0x65, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x2e, 0x6a, 0x73, 0x6f, 0x6e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getUpdatePlanInstructionAsync } from "your-generated-client";
+
+const ix = await getUpdatePlanInstructionAsync({
+  owner: ownerSigner, // merchant (a TransactionSigner)
+  planPda: address("2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp"), // plan(merchant, 1)
+  updatePlanData: {
+    status: 0,
+    endTs: 5184000n,
+    pullers: [address("11111111111111111111111111111111"), address("11111111111111111111111111111111"), address("11111111111111111111111111111111"), address("11111111111111111111111111111111")],
+    metadataUri: "https://example.com/updated.json"
+  },
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn update_plan_happy_path() {
+    let mut story = Story::load(SO, IDL);
+    let plan_pda = stage_plan(&amp;mut story, 1_000_000, 720, 0, vec![]);
+    let owner = merchant(&amp;mut story);
+
+    let end_ts = story.now() + days(60);
+    let outcome = story.update_plan(
+        &amp;owner,
+        plan_pda,
+        UpdatePlanArgs {
+            status: STATUS_SUNSET,
+            end_ts,
+            metadata_uri: "https://example.com/updated.json".into(),
+            ..Default::default()
+        },
+    );
+    story.then_holds("the merchant sunsets its own plan", outcome.success);
+
+    let status = story.track_field::&lt;u8&gt;("plan", plan_pda, "status");
+    let end_ts_field = story.track_field::&lt;i64&gt;("plan", plan_pda, "data.endTs");
+    let metadata_uri = story.track_field::&lt;String&gt;("plan", plan_pda, "data.metadataUri");
+
+    story.then_eq(&amp;status, STATUS_SUNSET);
+    story.then_eq(&amp;end_ts_field, end_ts);
+    story.then_eq(
+        &amp;metadata_uri,
+        "https://example.com/updated.json".to_string(),
+    );
+    emit_scenario(&amp;story, &amp;outcome, "A merchant updates a plan");
+}
+<span class="boring">}</span></code></pre>
+</details>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="updateplan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="a-merchant-creates-a-subscription-plan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="deleteplan.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="a-merchant-deletes-a-plan.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -272,11 +351,11 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="updateplan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="a-merchant-creates-a-subscription-plan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="deleteplan.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="a-merchant-deletes-a-plan.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

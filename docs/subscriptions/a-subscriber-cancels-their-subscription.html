@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-3b16a043.js";
+            window.path_to_searchindex_js = "searchindex-187cd171.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d3c4b178.js"></script>
+        <script src="toc-0f00a0ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="a-subscriber-cancels-their-subscription"><a class="header" href="#a-subscriber-cancels-their-subscription">A subscriber cancels their subscription</a></h1>
-<p><strong>Source:</strong> <code>tests/test_cancel_subscription.rs</code> L149</p>
+<p><strong>Source:</strong> <code>subscriptions/tests/test_cancel_subscription.rs</code> L149</p>
 <ul>
 <li>When: the user initializes a subscription authority</li>
 <li>When: the merchant creates plan 1</li>
@@ -189,7 +189,7 @@
     participant p1 as Subscriptions
     p0-&gt;&gt;p1: cancelSubscription
     activate p1
-    p1-&gt;&gt;p1: ?
+    p1-&gt;&gt;p1: emit:subscriptionCancelledEvent
     activate p1
     p1--&gt;&gt;p1: ✓ 137cu
     deactivate p1
@@ -201,9 +201,11 @@
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     alice(["alice"]):::signer
-    6pQD[("6pQD…")]:::state
+    subscriptionplanmerchant1alice[("subscription(plan(merchant, 1), alice)")]:::state
+    eventAuthority(["eventAuthority"]):::signer
     alice --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 6pQD
+    Subscriptions --&gt;|writes| subscriptionplanmerchant1alice
+    eventAuthority --&gt;|signs| Subscriptions
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -214,9 +216,9 @@
     system["system"]:::program
     alice[("alice")]:::state
     Subscriptions["Subscriptions"]:::program
-    6pQD[("6pQD…")]:::state
+    subscriptionplanmerchant1alice[("subscription(plan(merchant, 1), alice)")]:::state
     system --&gt;|owns| alice
-    Subscriptions --&gt;|owns| 6pQD
+    Subscriptions --&gt;|owns| subscriptionplanmerchant1alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -230,9 +232,9 @@
 </thead>
 <tbody>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>2PQu…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
-<tr><td>6pQD…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>plan(merchant, 1)</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>subscription(plan(merchant, 1), alice)</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>system</td></tr>
 <tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 </tbody>
 </table>
@@ -242,7 +244,7 @@
 <pre><code>A subscriber cancels their subscription
 alice (1957cu)
 └─ Subscriptions::cancelSubscription ✓ 1957cu
-   └─ Subscriptions::? ✓ 137cu
+   └─ Subscriptions::emit:subscriptionCancelledEvent ✓ 137cu
 </code></pre>
 <pre><code class="language-text">Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [1]
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 invoke [2]
@@ -252,16 +254,75 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 1957 of 200000 com
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- cancelSubscription ---
+let program_id: Pubkey = pubkey!("De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44");
+let subscriber: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
+let plan_pda: Pubkey = pubkey!("2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp"); // plan(merchant, 1): this scenario's value; supply your own
+let subscription_pda: Pubkey = pubkey!("6pQDdNgFksFRPMJQFvuiMheurG16kVi12So7UutPzWjH"); // subscription(plan(merchant, 1), alice): this scenario's value; supply your own
+let event_authority = Pubkey::find_program_address(&amp;[b"event_authority"], &amp;program_id).0;
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new_readonly(subscriber, true), // subscriber
+        AccountMeta::new_readonly(plan_pda, false), // planPda
+        AccountMeta::new(subscription_pda, false), // subscriptionPda
+        AccountMeta::new_readonly(event_authority, false), // eventAuthority
+        AccountMeta::new_readonly(program_id, false), // selfProgram
+    ],
+    // discriminator ++ borsh()
+    data: vec![0x0c],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getCancelSubscriptionInstructionAsync } from "your-generated-client";
+
+const ix = await getCancelSubscriptionInstructionAsync({
+  subscriber: subscriberSigner, // alice (a TransactionSigner)
+  planPda: address("2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp"), // plan(merchant, 1)
+  subscriptionPda: address("6pQDdNgFksFRPMJQFvuiMheurG16kVi12So7UutPzWjH"), // subscription(plan(merchant, 1), alice)
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn cancel_subscription_happy_path() {
+    let mut story = Story::load(SO, IDL);
+    let s = story.stage_subscription();
+
+    let outcome = story
+        .cancel_subscription(&amp;s.alice, s.plan_pda, s.subscription_pda)
+        .expect_success();
+
+    let expires = expires_at(&amp;story, &amp;s.subscription_pda);
+    story.then_holds(
+        "the cancelled subscription gets an end-of-period expiry",
+        expires != 0,
+    );
+    emit_scenario(&amp;story, &amp;outcome, "A subscriber cancels their subscription");
+}
+<span class="boring">}</span></code></pre>
+</details>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="cancelsubscription.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="a-subscriber-subscribes-to-a-plan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="resumesubscription.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="a-subscriber-resumes-a-cancelled-subscription.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -271,11 +332,11 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="cancelsubscription.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="a-subscriber-subscribes-to-a-plan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="resumesubscription.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="a-subscriber-resumes-a-cancelled-subscription.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

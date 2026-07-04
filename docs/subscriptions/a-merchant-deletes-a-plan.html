@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-3b16a043.js";
+            window.path_to_searchindex_js = "searchindex-187cd171.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d3c4b178.js"></script>
+        <script src="toc-0f00a0ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="a-merchant-deletes-a-plan"><a class="header" href="#a-merchant-deletes-a-plan">A merchant deletes a plan</a></h1>
-<p><strong>Source:</strong> <code>tests/test_delete_plan.rs</code> L118</p>
+<p><strong>Source:</strong> <code>subscriptions/tests/test_delete_plan.rs</code> L118</p>
 <ul>
 <li>When: the merchant creates plan 1</li>
 <li>When: the owner updates the plan</li>
@@ -201,9 +201,9 @@
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     merchant(["merchant"]):::signer
-    2PQu[("2PQu…")]:::state
+    planmerchant1[("plan(merchant, 1)")]:::state
     merchant --&gt;|signs| Subscriptions
-    Subscriptions --&gt;|writes| 2PQu
+    Subscriptions --&gt;|writes| planmerchant1
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -213,7 +213,9 @@
 <pre class="mermaid">flowchart LR
     system["system"]:::program
     merchant[("merchant")]:::state
+    planmerchant1[("plan(merchant, 1)")]:::state
     system --&gt;|owns| merchant
+    system --&gt;|owns| planmerchant1
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -227,7 +229,7 @@
 </thead>
 <tbody>
 <tr><td>merchant</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>2PQu…</td><td>·</td><td>✓</td><td>-</td></tr>
+<tr><td>plan(merchant, 1)</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
 </div>
@@ -242,16 +244,88 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 365 of 200000 comp
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
 </code></pre>
 </details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- deletePlan ---
+let program_id: Pubkey = pubkey!("De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44");
+let owner: Pubkey = pubkey!("4jnW4cX63scWb3VGDVaacYunDWNFsGERr3YYUKPuNxJp"); // merchant: this scenario's value; supply your own
+let plan_pda: Pubkey = pubkey!("2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp"); // plan(merchant, 1): this scenario's value; supply your own
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(owner, true), // owner
+        AccountMeta::new(plan_pda, false), // planPda
+    ],
+    // discriminator ++ borsh()
+    data: vec![0x09],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getDeletePlanInstructionAsync } from "your-generated-client";
+
+const ix = await getDeletePlanInstructionAsync({
+  owner: ownerSigner, // merchant (a TransactionSigner)
+  planPda: address("2PQuEytmHE7C2a9ynpmsRfYK7UgXNtCqSR4qnNNgeZwp"), // plan(merchant, 1)
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn delete_plan_happy_path() {
+    let mut story = Story::load(SO, IDL);
+    let end_ts = story.now() + days(2);
+    let plan_pda = stage_plan(&amp;mut story, end_ts);
+    let owner = merchant(&amp;mut story);
+
+    let update_outcome = story.update_plan(
+        &amp;owner,
+        plan_pda,
+        UpdatePlanArgs {
+            status: STATUS_SUNSET,
+            end_ts,
+            ..Default::default()
+        },
+    );
+    story.then_holds("the merchant sunsets the plan", update_outcome.success);
+    story.warp(days(3) as u64);
+
+    let rent = lamports(&amp;story, &amp;plan_pda);
+    story.then_holds("the plan account holds rent before deletion", rent &gt; 0);
+    let owner_before = lamports(&amp;story, &amp;owner.pubkey());
+
+    let outcome = story.delete_plan(&amp;owner, plan_pda);
+    story.then_holds("the merchant deletes the expired plan", outcome.success);
+
+    story.then_holds("the plan account is drained", is_drained(&amp;story, &amp;plan_pda));
+    let owner_after = lamports(&amp;story, &amp;owner.pubkey());
+    story.then_holds("the merchant's balance grew", owner_after &gt; owner_before);
+    story.then(
+        "the reclaimed rent (less fees) lands with the owner",
+        move |_| owner_after &gt;= owner_before + rent - 10_000,
+    );
+    emit_scenario(&amp;story, &amp;outcome, "A merchant deletes a plan");
+}
+<span class="boring">}</span></code></pre>
+</details>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="deleteplan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="a-merchant-updates-a-plan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="transfersubscription.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="subscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -261,11 +335,11 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 success
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="deleteplan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="a-merchant-updates-a-plan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="transfersubscription.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="subscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

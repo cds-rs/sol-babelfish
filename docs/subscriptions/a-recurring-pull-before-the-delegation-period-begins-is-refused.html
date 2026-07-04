@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-3b16a043.js";
+            window.path_to_searchindex_js = "searchindex-187cd171.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d3c4b178.js"></script>
+        <script src="toc-0f00a0ef.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="a-recurring-pull-before-the-delegation-period-begins-is-refused"><a class="header" href="#a-recurring-pull-before-the-delegation-period-begins-is-refused">A recurring pull before the delegation period begins is refused</a></h1>
-<p><strong>Source:</strong> <code>tests/audit_high_3_1_1.rs</code> L108</p>
+<p><strong>Source:</strong> <code>subscriptions/tests/audit_high_3_1_1.rs</code> L108</p>
 <ul>
 <li>When: the user initializes a subscription authority</li>
 <li>When: a recurring delegation is created</li>
@@ -198,12 +198,12 @@
 <pre class="mermaid">flowchart LR
     Subscriptions["Subscriptions"]:::program
     B1u4[("B1u4…")]:::state
-    3fVR[("3fVR…")]:::state
-    5UJQ[("5UJQ…")]:::state
+    aliceATAMint[("alice/ATA(Mint)")]:::state
+    bobATAMint[("bob/ATA(Mint)")]:::state
     bob(["bob"]):::signer
     Subscriptions --&gt;|writes| B1u4
-    Subscriptions --&gt;|writes| 3fVR
-    Subscriptions --&gt;|writes| 5UJQ
+    Subscriptions --&gt;|writes| aliceATAMint
+    Subscriptions --&gt;|writes| bobATAMint
     bob --&gt;|signs| Subscriptions
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -215,13 +215,13 @@
     Subscriptions["Subscriptions"]:::program
     B1u4[("B1u4…")]:::state
     token["token"]:::program
-    3fVR[("3fVR…")]:::state
-    5UJQ[("5UJQ…")]:::state
+    aliceATAMint[("alice/ATA(Mint)")]:::state
+    bobATAMint[("bob/ATA(Mint)")]:::state
     system["system"]:::program
     bob[("bob")]:::state
     Subscriptions --&gt;|owns| B1u4
-    token --&gt;|owns| 3fVR
-    token --&gt;|owns| 5UJQ
+    token --&gt;|owns| aliceATAMint
+    token --&gt;|owns| bobATAMint
     system --&gt;|owns| bob
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -236,13 +236,13 @@
 </thead>
 <tbody>
 <tr><td>B1u4…</td><td>·</td><td>✓</td><td>Subscriptions</td></tr>
-<tr><td>4RDK…</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
-<tr><td>3fVR…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>5UJQ…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>SA(alice, Mint)</td><td>·</td><td>·</td><td>Subscriptions</td></tr>
+<tr><td>alice/ATA(Mint)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>bob/ATA(Mint)</td><td>·</td><td>✓</td><td>token</td></tr>
 <tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
 <tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 <tr><td>bob</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>3Hnj…</td><td>·</td><td>·</td><td>-</td></tr>
+<tr><td>eventAuthority</td><td>·</td><td>·</td><td>system</td></tr>
 <tr><td>Subscriptions</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 </tbody>
 </table>
@@ -258,6 +258,130 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 consumed 949 of 200000 comp
 Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program error: 0x197
 </code></pre>
 </details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- transferRecurring ---
+let program_id: Pubkey = pubkey!("De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44");
+let delegation_pda: Pubkey = pubkey!("B1u4dvZ4DrFrUm3tm4K7zqN1Nb9fu2NuAFExDfyDocqg"); // supply your own
+let subscription_authority: Pubkey = pubkey!("4RDKDQRnKtZC5ti4wunSAayArwxdZida5St595CiKJ7i"); // SA(alice, Mint): this scenario's value; supply your own
+let delegator_ata: Pubkey = pubkey!("3fVRopUs1BsF6RqteSmcyctBCx2YQ6Zkv7prsUz95VHY"); // supply your own
+let receiver_ata: Pubkey = pubkey!("5UJQzG1wu6euuhQRnsHbqjKC8DHmfS4jVNzghS3PL4Hx"); // supply your own
+let token_mint: Pubkey = pubkey!("HhbhtPWNt5Rd2gvrjhGCekommdNQwVLY6ZMp3aBv4xtG"); // Mint: this scenario's value; supply your own
+let token_program: Pubkey = pubkey!("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"); // the token program
+let delegatee: Pubkey = pubkey!("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"); // bob: this scenario's value; supply your own
+let event_authority = Pubkey::find_program_address(&amp;[b"event_authority"], &amp;program_id).0;
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(delegation_pda, false), // delegationPda
+        AccountMeta::new_readonly(subscription_authority, false), // subscriptionAuthority
+        AccountMeta::new(delegator_ata, false), // delegatorAta
+        AccountMeta::new(receiver_ata, false), // receiverAta
+        AccountMeta::new_readonly(token_mint, false), // tokenMint
+        AccountMeta::new_readonly(token_program, false), // tokenProgram
+        AccountMeta::new_readonly(delegatee, true), // delegatee
+        AccountMeta::new_readonly(event_authority, false), // eventAuthority
+        AccountMeta::new_readonly(program_id, false), // selfProgram
+    ],
+    // discriminator ++ borsh(transferData: {amount: 10000000, delegator: 2rj1…, mint: Hhbh…})
+    data: vec![0x05, 0x80, 0x96, 0x98, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1b, 0x98, 0xa3, 0xfc, 0x7a, 0x9f, 0x8b, 0x5c, 0x8b, 0x0e, 0xad, 0xe0, 0x77, 0x5a, 0x59, 0x3e, 0x44, 0x99, 0xa9, 0x76, 0x55, 0x97, 0xcd, 0x1b, 0xdc, 0xae, 0x63, 0xcd, 0x00, 0xf5, 0x19, 0xbc, 0xf8, 0x21, 0x76, 0xd4, 0x30, 0xe3, 0x1b, 0x7f, 0x8d, 0xe5, 0x16, 0xa8, 0xf6, 0xa3, 0x97, 0xc4, 0x57, 0x80, 0x12, 0x98, 0x73, 0x7a, 0xb3, 0x11, 0x69, 0xc0, 0x99, 0x8f, 0x1c, 0x02, 0x2b, 0xa1],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getTransferRecurringInstructionAsync } from "your-generated-client";
+
+const ix = await getTransferRecurringInstructionAsync({
+  delegationPda: address("B1u4dvZ4DrFrUm3tm4K7zqN1Nb9fu2NuAFExDfyDocqg"),
+  subscriptionAuthority: address("4RDKDQRnKtZC5ti4wunSAayArwxdZida5St595CiKJ7i"), // SA(alice, Mint)
+  delegatorAta: address("3fVRopUs1BsF6RqteSmcyctBCx2YQ6Zkv7prsUz95VHY"),
+  receiverAta: address("5UJQzG1wu6euuhQRnsHbqjKC8DHmfS4jVNzghS3PL4Hx"),
+  tokenMint: address("HhbhtPWNt5Rd2gvrjhGCekommdNQwVLY6ZMp3aBv4xtG"), // Mint
+  // tokenProgram defaults to the token program
+  delegatee: delegateeSigner, // bob (a TransactionSigner)
+  transferData: {
+    amount: 10000000n,
+    delegator: address("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT") /* alice */,
+    mint: address("HhbhtPWNt5Rd2gvrjhGCekommdNQwVLY6ZMp3aBv4xtG") /* Mint */
+  },
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn finding_3_1_1_recurring_pull_before_start_ts_is_refused() {
+    let mut story = Story::load(SO, IDL);
+    let alice = story.cast("alice"); // delegator
+    let bob = story.cast("bob"); // delegatee (the attacker pulling early)
+    let mint = story.mint(&amp;alice, MINT_DECIMALS);
+    story.fund(&amp;alice, &amp;[(mint, 100_000_000)]);
+    story.fund(&amp;bob, &amp;[(mint, 0)]); // create Bob's receiver ATA
+    story.init_authority(&amp;alice, mint);
+
+    const DAY: i64 = 86_400;
+    const HOUR_S: u64 = 3_600;
+    let now = story.now();
+    let start_ts = now + DAY; // the delegation opens TOMORROW
+    let expiry_ts = now + 7 * DAY;
+
+    // 50 tokens/hour, but the delegation does not start until tomorrow.
+    let authority = story.subscription_authority_pda(&amp;alice.pubkey(), &amp;mint);
+    let create = story.create_recurring_delegation(CreateRecurringArgs {
+        delegator: &amp;alice,
+        mint,
+        delegatee: bob.pubkey(),
+        nonce: 0,
+        amount_per_period: 50_000_000,
+        period_length_s: HOUR_S,
+        start_ts,
+        expiry_ts,
+        sponsor: None,
+        expected_init_id: None,
+    });
+    story.then_holds(
+        "the recurring delegation is granted (it starts tomorrow)",
+        create.success,
+    );
+
+    let delegation_pda =
+        story.recurring_delegation_pda(&amp;authority, &amp;alice.pubkey(), &amp;bob.pubkey(), 0);
+
+    // The attack: Bob pulls 10 tokens NOW, a full day before start_ts.
+    let alice_before = story.token_balance(&amp;alice.ata(mint));
+    let pull = story.transfer_recurring(TransferArgs {
+        delegatee: &amp;bob,
+        delegation_pda,
+        delegator: alice.pubkey(),
+        mint,
+        amount: 10_000_000,
+        to: None,
+        from: None,
+    });
+
+    story.then_holds("the pre-start pull is refused", !pull.success);
+    emit_scenario(
+        &amp;story,
+        &amp;pull,
+        "A recurring pull before the delegation period begins is refused",
+    );
+    story.then(
+        "refusal carries custom error code for DelegationNotStarted",
+        move |_s| refused_with(&amp;pull, DELEGATION_NOT_STARTED),
+    );
+    story.then("no tokens move before the delegation starts", move |s| {
+        s.token_balance(&amp;alice.ata(mint)) == alice_before
+    });
+}
+<span class="boring">}</span></code></pre>
+</details>
 
                     </main>
 
@@ -267,7 +391,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program erro
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="closesubscriptionauthority.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="an-authority-revokes-a-delegation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -281,7 +405,7 @@ Program De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44 failed: custom program erro
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="closesubscriptionauthority.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="an-authority-revokes-a-delegation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
