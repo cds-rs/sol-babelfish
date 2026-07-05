@@ -1,12 +1,17 @@
 .ONESHELL:
 SHELL := /bin/bash
 
-# Source repos are private and their names stay out of this file: paths
-# arrive only via the environment, per invocation:
+# The vogon-registry corpus is public, so its members default to the
+# sibling checkout (override per invocation if yours lives elsewhere).
+# The AMM example lives in a private repo whose location stays out of
+# this file: its path arrives only via the environment.
 #
-#   AMM_PATH=/path/to/the/amm/example            make amm
-#   RECORD_PATH=/path/to/the/record/member       make record
-#   SUBSCRIPTIONS_PATH=/path/to/the/subs/member  make subscriptions
+#   AMM_PATH=/path/to/the/amm/example  make amm
+#   make record
+#   make subscriptions
+
+RECORD_PATH        ?= ../vogon-registry/record
+SUBSCRIPTIONS_PATH ?= ../vogon-registry/subscriptions
 
 .PHONY: amm record subscriptions
 
@@ -19,14 +24,15 @@ amm:
 
 record:
 	set -e
-	: "$${RECORD_PATH:?set RECORD_PATH to the record member directory}"
-	scripts/add-book.sh record "$$RECORD_PATH" \
+	scripts/add-book.sh record "$(RECORD_PATH)" \
 	  "Record" \
 	  "The SPL Record program: store bytes behind an authority you can hand off. Small and complete, a good first read."
 
 subscriptions:
 	set -e
-	: "$${SUBSCRIPTIONS_PATH:?set SUBSCRIPTIONS_PATH to the subscriptions member directory}"
-	scripts/add-book.sh subscriptions "$$SUBSCRIPTIONS_PATH" \
+	scripts/add-book.sh subscriptions "$(SUBSCRIPTIONS_PATH)" \
 	  "Subscriptions" \
 	  "A recurring-payment program: a usage guide by journey (authorities, plans, subscribing, collecting, delegations), every page an executed story with the integration code to match, and the audit findings that now hold as enforcement exhibits."
+
+all: amm record subscriptionS
+
