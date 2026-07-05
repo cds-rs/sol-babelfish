@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d34beeda.js";
+            window.path_to_searchindex_js = "searchindex-1206b0a1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-41cc0f55.js"></script>
@@ -235,37 +235,38 @@
 <pre class="mermaid">flowchart LR
     Amm["Amm"]:::program
     Alice(["Alice"]):::signer
-    91JD[("91JD…")]:::state
-    Huqn[("Huqn…")]:::state
-    BYCo[("BYCo…")]:::state
-    2z79[("2z79…")]:::state
-    7gaY[("7gaY…")]:::state
-    79Fy[("79Fy…")]:::state
-    2t5P[("2t5P…")]:::state
+    mintLpconfig0[("mintLp(config(0))")]:::state
+    vaultXconfig0Mint[("vaultX(config(0), Mint)")]:::state
+    vaultYconfig0Mint2[("vaultY(config(0), Mint 2)")]:::state
+    lpVaultconfig0mintLpconfig0[("lpVault(config(0), mintLp(config(0)))")]:::state
+    userXAliceMint[("userX(Alice, Mint)")]:::state
+    userYAliceMint2[("userY(Alice, Mint 2)")]:::state
+    userLpAlicemintLpconfig0(["userLp(Alice, mintLp(config(0)))"]):::signer
     splAssociatedTokenAccount["splAssociatedTokenAccount"]:::program
     token["token"]:::program
     system["system"]:::program
+    config0(["config(0)"]):::signer
     Alice --&gt;|signs| Amm
-    Amm --&gt;|writes| 91JD
-    Amm --&gt;|writes| Huqn
-    Amm --&gt;|writes| BYCo
-    Amm --&gt;|writes| 2z79
-    Amm --&gt;|writes| 7gaY
-    Amm --&gt;|writes| 79Fy
-    Amm --&gt;|writes| 2t5P
+    Amm --&gt;|writes| mintLpconfig0
+    Amm --&gt;|writes| vaultXconfig0Mint
+    Amm --&gt;|writes| vaultYconfig0Mint2
+    Amm --&gt;|writes| lpVaultconfig0mintLpconfig0
+    Amm --&gt;|writes| userXAliceMint
+    Amm --&gt;|writes| userYAliceMint2
+    Amm --&gt;|writes| userLpAlicemintLpconfig0
     Alice --&gt;|signs| splAssociatedTokenAccount
-    splAssociatedTokenAccount --&gt;|writes| 2t5P
-    splAssociatedTokenAccount --&gt;|writes| 91JD
-    token --&gt;|writes| 91JD
+    splAssociatedTokenAccount --&gt;|writes| userLpAlicemintLpconfig0
     Alice --&gt;|signs| system
-    system --&gt;|writes| 2t5P
-    token --&gt;|writes| 2t5P
-    token --&gt;|writes| 7gaY
-    token --&gt;|writes| Huqn
+    userLpAlicemintLpconfig0 --&gt;|signs| system
+    token --&gt;|writes| userLpAlicemintLpconfig0
+    token --&gt;|writes| userXAliceMint
+    token --&gt;|writes| vaultXconfig0Mint
     Alice --&gt;|signs| token
-    token --&gt;|writes| 79Fy
-    token --&gt;|writes| BYCo
-    token --&gt;|writes| 2z79
+    token --&gt;|writes| userYAliceMint2
+    token --&gt;|writes| vaultYconfig0Mint2
+    token --&gt;|writes| mintLpconfig0
+    config0 --&gt;|signs| token
+    token --&gt;|writes| lpVaultconfig0mintLpconfig0
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -276,21 +277,21 @@
     system["system"]:::program
     Alice[("Alice")]:::state
     token["token"]:::program
-    91JD[("91JD…")]:::state
-    Huqn[("Huqn…")]:::state
-    BYCo[("BYCo…")]:::state
-    2z79[("2z79…")]:::state
-    7gaY[("7gaY…")]:::state
-    79Fy[("79Fy…")]:::state
-    2t5P[("2t5P…")]:::state
+    mintLpconfig0[("mintLp(config(0))")]:::state
+    vaultXconfig0Mint[("vaultX(config(0), Mint)")]:::state
+    vaultYconfig0Mint2[("vaultY(config(0), Mint 2)")]:::state
+    lpVaultconfig0mintLpconfig0[("lpVault(config(0), mintLp(config(0)))")]:::state
+    userXAliceMint[("userX(Alice, Mint)")]:::state
+    userYAliceMint2[("userY(Alice, Mint 2)")]:::state
+    userLpAlicemintLpconfig0[("userLp(Alice, mintLp(config(0)))")]:::state
     system --&gt;|owns| Alice
-    token --&gt;|owns| 91JD
-    token --&gt;|owns| Huqn
-    token --&gt;|owns| BYCo
-    token --&gt;|owns| 2z79
-    token --&gt;|owns| 7gaY
-    token --&gt;|owns| 79Fy
-    token --&gt;|owns| 2t5P
+    token --&gt;|owns| mintLpconfig0
+    token --&gt;|owns| vaultXconfig0Mint
+    token --&gt;|owns| vaultYconfig0Mint2
+    token --&gt;|owns| lpVaultconfig0mintLpconfig0
+    token --&gt;|owns| userXAliceMint
+    token --&gt;|owns| userYAliceMint2
+    token --&gt;|owns| userLpAlicemintLpconfig0
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -306,14 +307,14 @@
 <tr><td>Alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
 <tr><td>Mint 2</td><td>·</td><td>·</td><td>token</td></tr>
-<tr><td>DWm4…</td><td>·</td><td>·</td><td>Amm</td></tr>
-<tr><td>91JD…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>Huqn…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>BYCo…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>2z79…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>7gaY…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>79Fy…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>2t5P…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>config(0)</td><td>·</td><td>·</td><td>Amm</td></tr>
+<tr><td>mintLp(config(0))</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>vaultX(config(0), Mint)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>vaultY(config(0), Mint 2)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>lpVault(config(0), mintLp(config(0)))</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>userX(Alice, Mint)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>userY(Alice, Mint 2)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>userLp(Alice, mintLp(config(0)))</td><td>·</td><td>✓</td><td>token</td></tr>
 <tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 <tr><td>splAssociatedTokenAccount</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 <tr><td>system</td><td>·</td><td>·</td><td>Nati…</td></tr>
@@ -370,6 +371,68 @@ Program 5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi consumed 80926 of 200000 co
 Program 5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi success
 </code></pre>
 </details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- addLiquidity ---
+let program_id: Pubkey = pubkey!("5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi");
+let user: Pubkey = pubkey!("C9Q33D4bhNQN8SFaAQCZke6DFkecWygY1HSsiYXuDSTW"); // Alice: this scenario's value; supply your own
+let mint_x: Pubkey = pubkey!("14s1WJtcVpTaZu3msFwBCqiXN4vXsnUmgPbYQmVihg9k"); // Mint: this scenario's value; supply your own
+let mint_y: Pubkey = pubkey!("3u6JCVjEDMjoVNS91QDBDpzAsZzffy1e3vaJm6rg7baa"); // Mint 2: this scenario's value; supply your own
+let config: Pubkey = pubkey!("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"); // config(0): this scenario's value; supply your own
+let token_program: Pubkey = pubkey!("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"); // the token program
+let associated_token_program: Pubkey = pubkey!("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"); // the splAssociatedTokenAccount program
+let system_program: Pubkey = pubkey!("11111111111111111111111111111111"); // the system program
+let mint_lp = Pubkey::find_program_address(&amp;[b"lp", config.as_ref()], &amp;program_id).0;
+let vault_x: Pubkey = pubkey!("Huqnh3ixPRjEVaMhA4vJKzsS2fL5DS8cPz2dQrKEbAtJ"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let vault_y: Pubkey = pubkey!("BYCoofMdGc5jQL9TzNbVaWHCp4n2TWBip1dkrw2LWHys"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let lp_vault: Pubkey = pubkey!("2z79VArZvbErd7GmPasiLyTxnFJcbNZNEnWGVzojik7t"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let user_x: Pubkey = pubkey!("7gaYzTKg2xKMSsrxjFhRbmaH1Smjbn6Z75G2rBnPBR3c"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let user_y: Pubkey = pubkey!("79FymYMZPJgpnnW5exzdgfjXqYurPSdFHXu3Ppb3mVEX"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let user_lp: Pubkey = pubkey!("2t5PJLf5cyKVSd5WHe3e4DbPhd4zZXtsNVDQSRB8eUmc"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(user, true), // user
+        AccountMeta::new_readonly(mint_x, false), // mintX
+        AccountMeta::new_readonly(mint_y, false), // mintY
+        AccountMeta::new_readonly(config, false), // config
+        AccountMeta::new(mint_lp, false), // mintLp
+        AccountMeta::new(vault_x, false), // vaultX
+        AccountMeta::new(vault_y, false), // vaultY
+        AccountMeta::new(lp_vault, false), // lpVault
+        AccountMeta::new(user_x, false), // userX
+        AccountMeta::new(user_y, false), // userY
+        AccountMeta::new(user_lp, false), // userLp
+        AccountMeta::new_readonly(token_program, false), // tokenProgram
+        AccountMeta::new_readonly(associated_token_program, false), // associatedTokenProgram
+        AccountMeta::new_readonly(system_program, false), // systemProgram
+    ],
+    // discriminator ++ borsh(amountA: 1000, amountB: 4000, minLpTokens: 1000)
+    data: vec![0xb5, 0x9d, 0x59, 0x43, 0x8f, 0xb6, 0x34, 0x48, 0xe8, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xa0, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe8, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getAddLiquidityInstructionAsync } from "your-generated-client";
+
+const ix = await getAddLiquidityInstructionAsync({
+  user: userSigner, // Alice (a TransactionSigner)
+  mintX: address("14s1WJtcVpTaZu3msFwBCqiXN4vXsnUmgPbYQmVihg9k"), // Mint
+  mintY: address("3u6JCVjEDMjoVNS91QDBDpzAsZzffy1e3vaJm6rg7baa"), // Mint 2
+  config: address("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"), // config(0)
+  // tokenProgram defaults to the token program
+  // associatedTokenProgram defaults to the splAssociatedTokenAccount program
+  // systemProgram defaults to the system program
+  amountA: 1000n,
+  amountB: 4000n,
+  minLpTokens: 1000n,
+});
+</code></pre>
 
                     </main>
 

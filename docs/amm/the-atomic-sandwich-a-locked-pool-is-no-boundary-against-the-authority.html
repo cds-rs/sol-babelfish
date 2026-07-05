@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d34beeda.js";
+            window.path_to_searchindex_js = "searchindex-1206b0a1.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-41cc0f55.js"></script>
@@ -218,24 +218,24 @@
 <pre class="mermaid">flowchart LR
     Amm["Amm"]:::program
     Mallory(["Mallory"]):::signer
-    Pool[("Pool")]:::state
-    BEmM[("BEmM…")]:::state
-    4dGt[("4dGt…")]:::state
-    G4yB[("G4yB…")]:::state
-    9Yfu[("9Yfu…")]:::state
+    Pool(["Pool"]):::signer
+    vaultXPoolMint[("vaultX(Pool, Mint)")]:::state
+    vaultYPoolMint2[("vaultY(Pool, Mint 2)")]:::state
+    userXMalloryMint[("userX(Mallory, Mint)")]:::state
+    userYMalloryMint2[("userY(Mallory, Mint 2)")]:::state
     token["token"]:::program
     Mallory --&gt;|signs| Amm
     Amm --&gt;|writes| Pool
-    Amm --&gt;|writes| BEmM
-    Amm --&gt;|writes| 4dGt
-    Amm --&gt;|writes| G4yB
-    Amm --&gt;|writes| 9Yfu
-    token --&gt;|writes| G4yB
-    token --&gt;|writes| BEmM
+    Amm --&gt;|writes| vaultXPoolMint
+    Amm --&gt;|writes| vaultYPoolMint2
+    Amm --&gt;|writes| userXMalloryMint
+    Amm --&gt;|writes| userYMalloryMint2
+    token --&gt;|writes| userXMalloryMint
+    token --&gt;|writes| vaultXPoolMint
     Mallory --&gt;|signs| token
-    token --&gt;|writes| 4dGt
-    token --&gt;|writes| 9Yfu
-    token --&gt;|writes| Pool
+    token --&gt;|writes| vaultYPoolMint2
+    token --&gt;|writes| userYMalloryMint2
+    Pool --&gt;|signs| token
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -248,16 +248,16 @@
     Amm["Amm"]:::program
     Pool[("Pool")]:::state
     token["token"]:::program
-    BEmM[("BEmM…")]:::state
-    4dGt[("4dGt…")]:::state
-    G4yB[("G4yB…")]:::state
-    9Yfu[("9Yfu…")]:::state
+    vaultXPoolMint[("vaultX(Pool, Mint)")]:::state
+    vaultYPoolMint2[("vaultY(Pool, Mint 2)")]:::state
+    userXMalloryMint[("userX(Mallory, Mint)")]:::state
+    userYMalloryMint2[("userY(Mallory, Mint 2)")]:::state
     system --&gt;|owns| Mallory
     Amm --&gt;|owns| Pool
-    token --&gt;|owns| BEmM
-    token --&gt;|owns| 4dGt
-    token --&gt;|owns| G4yB
-    token --&gt;|owns| 9Yfu
+    token --&gt;|owns| vaultXPoolMint
+    token --&gt;|owns| vaultYPoolMint2
+    token --&gt;|owns| userXMalloryMint
+    token --&gt;|owns| userYMalloryMint2
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -274,10 +274,10 @@
 <tr><td>Pool</td><td>·</td><td>✓</td><td>Amm</td></tr>
 <tr><td>Mint</td><td>·</td><td>·</td><td>token</td></tr>
 <tr><td>Mint 2</td><td>·</td><td>·</td><td>token</td></tr>
-<tr><td>BEmM…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>4dGt…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>G4yB…</td><td>·</td><td>✓</td><td>token</td></tr>
-<tr><td>9Yfu…</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>vaultX(Pool, Mint)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>vaultY(Pool, Mint 2)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>userX(Mallory, Mint)</td><td>·</td><td>✓</td><td>token</td></tr>
+<tr><td>userY(Mallory, Mint 2)</td><td>·</td><td>✓</td><td>token</td></tr>
 <tr><td>token</td><td>·</td><td>·</td><td>BPFL…</td></tr>
 </tbody>
 </table>
@@ -312,6 +312,97 @@ Program 5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi consumed 4079 of 572304 com
 Program 5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi success
 </code></pre>
 </details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- setLocked ---
+let program_id: Pubkey = pubkey!("5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi");
+let authority_1: Pubkey = pubkey!("2vG6xpsbeMe9s2VBYroRrjYzkaPzJXbh8Pn24UfMGuzx"); // Mallory: this scenario's value; supply your own
+let config_1: Pubkey = pubkey!("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"); // Pool: this scenario's value; supply your own
+let ix_1 = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new_readonly(authority_1, true), // authority
+        AccountMeta::new(config_1, false), // config
+    ],
+    // discriminator ++ borsh(locked: false)
+    data: vec![0x9d, 0x03, 0x30, 0x38, 0x1f, 0xd4, 0xf2, 0x58, 0x00],
+};
+
+// --- swap ---
+let program_id: Pubkey = pubkey!("5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi");
+let user_2: Pubkey = pubkey!("2vG6xpsbeMe9s2VBYroRrjYzkaPzJXbh8Pn24UfMGuzx"); // Mallory: this scenario's value; supply your own
+let mint_x_2: Pubkey = pubkey!("Dq26t7JZEn9jCpma5Cn77d76SECZ79m2xwxpDDVnf6jn"); // Mint: this scenario's value; supply your own
+let mint_y_2: Pubkey = pubkey!("DAxYEAkg7hsB7qZA8bLEJJPkNEgtEYqbxjcZx1VfLK5k"); // Mint 2: this scenario's value; supply your own
+let config_2: Pubkey = pubkey!("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"); // Pool: this scenario's value; supply your own
+let token_program_2: Pubkey = pubkey!("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"); // the token program
+let vault_x_2: Pubkey = pubkey!("BEmMWKwvGZMBG47GzsU1noJYpgRtRAmJAjKzxmYAr1PY"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let vault_y_2: Pubkey = pubkey!("4dGtYZgpFMtNGJEpckGCvwYZs9VxYa1j3hPaeDsMejjy"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let user_x_2: Pubkey = pubkey!("G4yBZJK59Dvd4PZpL12d7BFZyL7GY6G2n3Y32o34BXG9"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let user_y_2: Pubkey = pubkey!("9YfuNPSd8wuBPh2FcizzSMK4A8dWNjApLjRkHwL5FGMB"); // derivation elided (a seed's encoding is beyond this snippet); address from the run
+let ix_2 = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(user_2, true), // user
+        AccountMeta::new_readonly(mint_x_2, false), // mintX
+        AccountMeta::new_readonly(mint_y_2, false), // mintY
+        AccountMeta::new_readonly(config_2, false), // config
+        AccountMeta::new(vault_x_2, false), // vaultX
+        AccountMeta::new(vault_y_2, false), // vaultY
+        AccountMeta::new(user_x_2, false), // userX
+        AccountMeta::new(user_y_2, false), // userY
+        AccountMeta::new_readonly(token_program_2, false), // tokenProgram
+    ],
+    // discriminator ++ borsh(kind: …, aToB: true)
+    data: vec![0xf8, 0xc6, 0x9e, 0x91, 0xe1, 0x75, 0x87, 0xc8, 0x00, 0xe8, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01],
+};
+
+// --- setLocked ---
+let program_id: Pubkey = pubkey!("5aDxxnPDGeVEuLXerisV4GF5f8tcwTjbMK7Bn1dYUXSi");
+let authority_3: Pubkey = pubkey!("2vG6xpsbeMe9s2VBYroRrjYzkaPzJXbh8Pn24UfMGuzx"); // Mallory: this scenario's value; supply your own
+let config_3: Pubkey = pubkey!("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"); // Pool: this scenario's value; supply your own
+let ix_3 = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new_readonly(authority_3, true), // authority
+        AccountMeta::new(config_3, false), // config
+    ],
+    // discriminator ++ borsh(locked: true)
+    data: vec![0x9d, 0x03, 0x30, 0x38, 0x1f, 0xd4, 0xf2, 0x58, 0x01],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getSetLockedInstructionAsync } from "your-generated-client";
+
+const ix = await getSetLockedInstructionAsync({
+  authority: authoritySigner, // Mallory (a TransactionSigner)
+  config: address("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"), // Pool
+  locked: false,
+});
+import { getSwapInstructionAsync } from "your-generated-client";
+
+const ix = await getSwapInstructionAsync({
+  user: userSigner, // Mallory (a TransactionSigner)
+  mintX: address("Dq26t7JZEn9jCpma5Cn77d76SECZ79m2xwxpDDVnf6jn"), // Mint
+  mintY: address("DAxYEAkg7hsB7qZA8bLEJJPkNEgtEYqbxjcZx1VfLK5k"), // Mint 2
+  config: address("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"), // Pool
+  // tokenProgram defaults to the token program
+  kind: { __kind: "exactInput" },
+  aToB: true,
+});
+import { getSetLockedInstructionAsync } from "your-generated-client";
+
+const ix = await getSetLockedInstructionAsync({
+  authority: authoritySigner, // Mallory (a TransactionSigner)
+  config: address("DWm4MrK6YroDTYNXjcpjh7k5TLbriQDfkQjePWuAmLVc"), // Pool
+  locked: true,
+});
+</code></pre>
 
                     </main>
 
