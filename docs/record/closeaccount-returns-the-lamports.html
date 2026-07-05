@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-aa96a2fb.js";
+            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="closeaccount-returns-the-lamports"><a class="header" href="#closeaccount-returns-the-lamports">closeAccount returns the lamports</a></h1>
-<p><strong>Source:</strong> <code>tests/record.rs</code> L212</p>
+<p><strong>Source:</strong> <code>record/tests/record.rs</code> L212</p>
 <ul>
 <li>Given: a record initialized with alice as authority</li>
 <li>When: setup: payer initializes the record</li>
@@ -198,10 +198,10 @@
     Record["Record"]:::program
     1119[("1119…")]:::state
     alice(["alice"]):::signer
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     Record --&gt;|writes| 1119
     alice --&gt;|signs| Record
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -209,11 +209,14 @@
 
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
+    Record["Record"]:::program
+    1119[("1119…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
+    Record --&gt;|owns| 1119
     system --&gt;|owns| alice
-    system --&gt;|owns| 111F
+    system --&gt;|owns| 111J
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -226,9 +229,9 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1119…</td><td>·</td><td>✓</td><td>-</td></tr>
+<tr><td>1119…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>system</td></tr>
+<tr><td>111J…</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
 </div>
@@ -243,6 +246,83 @@ Program log: RecordInstruction::CloseAccount
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 consumed 988 of 200000 compute units
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 </code></pre>
+</details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- closeAccount ---
+let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
+let record_account: Pubkey = pubkey!("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"); // supply your own
+let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
+let receiver: Pubkey = pubkey!("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"); // supply your own
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(record_account, false), // recordAccount
+        AccountMeta::new_readonly(authority, true), // authority
+        AccountMeta::new(receiver, false), // receiver
+    ],
+    // discriminator ++ borsh()
+    data: vec![0x03],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getCloseAccountInstructionAsync } from "your-generated-client";
+
+const ix = await getCloseAccountInstructionAsync({
+  recordAccount: address("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"),
+  authority: authoritySigner, // alice (a TransactionSigner)
+  receiver: address("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"),
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn close_account_returns_the_lamports() {
+    let mut story = Story::load(SO, IDL);
+
+    story.given("a record initialized with alice as authority");
+    let payer = story.cast("payer");
+    let alice = story.cast("alice");
+    let record = story.stage_record(WRITABLE_START + 16);
+    story
+        .when(
+            "setup: payer initializes the record",
+            initialize()
+                .record_account(record)
+                .authority(alice.pubkey()),
+            &amp;[&amp;payer],
+        )
+        .expect_success();
+    let record_lamports = lamports(&amp;story, &amp;record);
+    let receiver = Pubkey::new_unique();
+
+    let record_lamports_after = story.track("record lamports", move |s| lamports(s, &amp;record));
+    let receiver_lamports = story.track("receiver lamports", move |s| lamports(s, &amp;receiver));
+
+    let out = story
+        .when(
+            "alice closes the record and drains lamports to receiver",
+            close_account()
+                .record_account(record)
+                .authority(&amp;alice)
+                .receiver(receiver),
+            &amp;[&amp;alice],
+        )
+        .expect_success();
+    story.then_eq(&amp;record_lamports_after, 0);
+    story.then_eq(&amp;receiver_lamports, record_lamports);
+    emit_scenario(&amp;story, &amp;out, "closeAccount returns the lamports");
+}
+<span class="boring">}</span></code></pre>
 </details>
 
                     </main>

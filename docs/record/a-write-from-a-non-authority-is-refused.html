@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-aa96a2fb.js";
+            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="a-write-from-a-non-authority-is-refused"><a class="header" href="#a-write-from-a-non-authority-is-refused">A write from a non-authority is refused</a></h1>
-<p><strong>Source:</strong> <code>tests/record.rs</code> L117</p>
+<p><strong>Source:</strong> <code>record/tests/record.rs</code> L117</p>
 <ul>
 <li>Given: a record initialized with alice as authority</li>
 <li>When: setup: payer initializes the record</li>
@@ -196,9 +196,9 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111J[("111J…")]:::state
+    111F[("111F…")]:::state
     mallory(["mallory"]):::signer
-    Record --&gt;|writes| 111J
+    Record --&gt;|writes| 111F
     mallory --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -208,10 +208,10 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111J[("111J…")]:::state
+    111F[("111F…")]:::state
     system["system"]:::program
     mallory[("mallory")]:::state
-    Record --&gt;|owns| 111J
+    Record --&gt;|owns| 111F
     system --&gt;|owns| mallory
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -225,7 +225,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111J…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>mallory</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -242,6 +242,79 @@ Program log: Incorrect record authority provided
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 consumed 833 of 200000 compute units
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 failed: custom program error: 0x0
 </code></pre>
+</details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- write ---
+let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
+let record_account: Pubkey = pubkey!("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"); // supply your own
+let authority: Pubkey = pubkey!("CccbLj76vNwYe3sSTuPVUc1nRqRFG6fhAQThsiochKMg"); // mallory: this scenario's value; supply your own
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(record_account, false), // recordAccount
+        AccountMeta::new_readonly(authority, true), // authority
+    ],
+    // discriminator ++ borsh(offset: 0, data: …)
+    data: vec![0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x66, 0x6f, 0x72, 0x67, 0x65, 0x64],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getWriteInstructionAsync } from "your-generated-client";
+
+const ix = await getWriteInstructionAsync({
+  recordAccount: address("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"),
+  authority: authoritySigner, // mallory (a TransactionSigner)
+  offset: 0n,
+  data: /* … */,
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn write_requires_the_authority() {
+    let mut story = Story::load(SO, IDL);
+
+    story.given("a record initialized with alice as authority");
+    let payer = story.cast("payer");
+    let alice = story.cast("alice");
+    let mallory = story.cast("mallory");
+    let record = story.stage_record(WRITABLE_START + 16);
+    story
+        .when(
+            "setup: payer initializes the record",
+            initialize()
+                .record_account(record)
+                .authority(alice.pubkey()),
+            &amp;[&amp;payer],
+        )
+        .expect_success();
+
+    let out = story.when(
+        "mallory tries to forge a write",
+        write()
+            .record_account(record)
+            .authority(&amp;mallory)
+            .offset(0)
+            .data(b"forged".to_vec()),
+        &amp;[&amp;mallory],
+    );
+    story.then_holds(
+        "a write from someone who is not the authority is rejected",
+        !out.success,
+    );
+    emit_scenario(&amp;story, &amp;out, "A write from a non-authority is refused");
+}
+<span class="boring">}</span></code></pre>
 </details>
 
                     </main>

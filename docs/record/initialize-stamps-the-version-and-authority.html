@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-aa96a2fb.js";
+            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="initialize-stamps-the-version-and-authority"><a class="header" href="#initialize-stamps-the-version-and-authority">Initialize stamps the version and authority</a></h1>
-<p><strong>Source:</strong> <code>tests/record.rs</code> L46</p>
+<p><strong>Source:</strong> <code>record/tests/record.rs</code> L46</p>
 <ul>
 <li>Given: a fresh, uninitialized record account with 16 bytes of payload space</li>
 <li>When: payer initializes the record, nominating alice as authority</li>
@@ -236,6 +236,71 @@ Program log: RecordInstruction::Initialize
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 consumed 707 of 200000 compute units
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 </code></pre>
+</details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- initialize ---
+let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
+let record_account: Pubkey = pubkey!("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"); // supply your own
+let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(record_account, false), // recordAccount
+        AccountMeta::new_readonly(authority, false), // authority
+    ],
+    // discriminator ++ borsh()
+    data: vec![0x00],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getInitializeInstructionAsync } from "your-generated-client";
+
+const ix = await getInitializeInstructionAsync({
+  recordAccount: address("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"),
+  authority: address("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"), // alice
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn initialize_stamps_version_and_authority() {
+    let mut story = Story::load(SO, IDL);
+
+    story.given("a fresh, uninitialized record account with 16 bytes of payload space");
+    let payer = story.cast("payer");
+    let alice = story.cast("alice");
+    let record = story.stage_record(WRITABLE_START + 16);
+
+    let version = story.track("version", move |s| s.read_record(&amp;record).0);
+    let authority = story.track("authority", move |s| s.read_record(&amp;record).1);
+    let payload = story.track("payload", move |s| s.read_record(&amp;record).2);
+
+    let out = story
+        .when(
+            "payer initializes the record, nominating alice as authority",
+            initialize()
+                .record_account(record)
+                .authority(alice.pubkey()),
+            &amp;[&amp;payer],
+        )
+        .expect_success();
+
+    story.then_eq(&amp;version, 1);
+    story.then_eq(&amp;authority, alice.pubkey());
+    story.then_eq(&amp;payload, vec![0u8; 16]);
+    emit_scenario(&amp;story, &amp;out, "Initialize stamps the version and authority");
+}
+<span class="boring">}</span></code></pre>
 </details>
 
                     </main>

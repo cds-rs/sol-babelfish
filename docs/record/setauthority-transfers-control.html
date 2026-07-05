@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-aa96a2fb.js";
+            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="setauthority-transfers-control"><a class="header" href="#setauthority-transfers-control">setAuthority transfers control</a></h1>
-<p><strong>Source:</strong> <code>tests/record.rs</code> L174</p>
+<p><strong>Source:</strong> <code>record/tests/record.rs</code> L174</p>
 <ul>
 <li>Given: a record initialized with alice as authority</li>
 <li>When: setup: payer initializes the record</li>
@@ -244,6 +244,102 @@ Program log: RecordInstruction::SetAuthority
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 consumed 943 of 200000 compute units
 Program recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5 success
 </code></pre>
+</details>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<p>What an integrator writes: the derivations and the instruction, byte-identical to the transaction this page witnessed. Addresses are this scenario’s; supply your own.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use solana_instruction::{AccountMeta, Instruction};
+use solana_pubkey::{pubkey, Pubkey};
+
+// --- setAuthority ---
+let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
+let record_account: Pubkey = pubkey!("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"); // supply your own
+let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
+let new_authority: Pubkey = pubkey!("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"); // bob: this scenario's value; supply your own
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(record_account, false), // recordAccount
+        AccountMeta::new_readonly(authority, true), // authority
+        AccountMeta::new_readonly(new_authority, false), // newAuthority
+    ],
+    // discriminator ++ borsh()
+    data: vec![0x02],
+};
+<span class="boring">}</span></code></pre>
+<p>The same call through the Codama-generated TypeScript client (the async builder derives every PDA the resolver derived here, so only the free inputs appear):</p>
+<pre><code class="language-typescript">import { address } from "@solana/kit";
+import { getSetAuthorityInstructionAsync } from "your-generated-client";
+
+const ix = await getSetAuthorityInstructionAsync({
+  recordAccount: address("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"),
+  authority: authoritySigner, // alice (a TransactionSigner)
+  newAuthority: address("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"), // bob
+});
+</code></pre>
+<details>
+<summary>How this page verifies itself: the test that ran it</summary>
+<p>The narrative above is this test; the page and the code cannot drift.</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn set_authority_transfers_control() {
+    let mut story = Story::load(SO, IDL);
+
+    story.given("a record initialized with alice as authority");
+    let payer = story.cast("payer");
+    let alice = story.cast("alice");
+    let bob = story.cast("bob");
+    let record = story.stage_record(WRITABLE_START + 16);
+    story
+        .when(
+            "setup: payer initializes the record",
+            initialize()
+                .record_account(record)
+                .authority(alice.pubkey()),
+            &amp;[&amp;payer],
+        )
+        .expect_success();
+
+    let authority = story.track("authority", move |s| s.read_record(&amp;record).1);
+    let handoff = story
+        .when(
+            "alice hands off authority to bob",
+            set_authority()
+                .record_account(record)
+                .authority(&amp;alice)
+                .new_authority(bob.pubkey()),
+            &amp;[&amp;alice],
+        )
+        .expect_success();
+    story.then_eq(&amp;authority, bob.pubkey());
+
+    story
+        .when(
+            "bob writes to the record he now controls",
+            write()
+                .record_account(record)
+                .authority(&amp;bob)
+                .offset(0)
+                .data(b"bob".to_vec()),
+            &amp;[&amp;bob],
+        )
+        .expect_success();
+
+    let out = story.when(
+        "alice tries to write after handing off",
+        write()
+            .record_account(record)
+            .authority(&amp;alice)
+            .offset(0)
+            .data(b"back".to_vec()),
+        &amp;[&amp;alice],
+    );
+    story.then_holds("alice no longer controls it", !out.success);
+    emit_scenario(&amp;story, &amp;handoff, "setAuthority transfers control");
+}
+<span class="boring">}</span></code></pre>
 </details>
 
                     </main>
