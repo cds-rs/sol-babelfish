@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
+            window.path_to_searchindex_js = "searchindex-3ff3bd8a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -198,9 +198,9 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111B[("111B…")]:::state
+    111F[("111F…")]:::state
     alice(["alice"]):::signer
-    Record --&gt;|writes| 111B
+    Record --&gt;|writes| 111F
     alice --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -210,10 +210,10 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111B[("111B…")]:::state
+    111F[("111F…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    Record --&gt;|owns| 111B
+    Record --&gt;|owns| 111F
     system --&gt;|owns| alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -227,7 +227,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111B…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>bob</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
@@ -254,7 +254,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- setAuthority ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"); // supply your own
+let record_account: Pubkey = pubkey!("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
 let new_authority: Pubkey = pubkey!("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"); // bob: this scenario's value; supply your own
 let ix = Instruction {
@@ -273,7 +273,7 @@ let ix = Instruction {
 import { getSetAuthorityInstructionAsync } from "your-generated-client";
 
 const ix = await getSetAuthorityInstructionAsync({
-  recordAccount: address("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"),
+  recordAccount: address("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"),
   authority: authoritySigner, // alice (a TransactionSigner)
   newAuthority: address("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"), // bob
 });

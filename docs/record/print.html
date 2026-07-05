@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
+            window.path_to_searchindex_js = "searchindex-3ff3bd8a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -216,8 +216,8 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1115[("1115…")]:::state
-    Record --&gt;|writes| 1115
+    1117[("1117…")]:::state
+    Record --&gt;|writes| 1117
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -226,8 +226,8 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1115[("1115…")]:::state
-    Record --&gt;|owns| 1115
+    1117[("1117…")]:::state
+    Record --&gt;|owns| 1117
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -240,7 +240,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1115…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1117…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
 </table>
@@ -266,7 +266,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- initialize ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"); // supply your own
+let record_account: Pubkey = pubkey!("1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
 let ix = Instruction {
     program_id,
@@ -283,7 +283,7 @@ let ix = Instruction {
 import { getInitializeInstructionAsync } from "your-generated-client";
 
 const ix = await getInitializeInstructionAsync({
-  recordAccount: address("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"),
+  recordAccount: address("1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG"),
   authority: address("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"), // alice
 });
 </code></pre>
@@ -371,9 +371,9 @@ fn initialize_stamps_version_and_authority() {
 <h2 id="authority-1"><a class="header" href="#authority-1">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     mallory(["mallory"]):::signer
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111J
     mallory --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -383,10 +383,10 @@ fn initialize_stamps_version_and_authority() {
 <h2 id="ownership-1"><a class="header" href="#ownership-1">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     system["system"]:::program
     mallory[("mallory")]:::state
-    Record --&gt;|owns| 111F
+    Record --&gt;|owns| 111J
     system --&gt;|owns| mallory
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -400,7 +400,7 @@ fn initialize_stamps_version_and_authority() {
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111J…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>mallory</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -427,7 +427,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- write ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"); // supply your own
+let record_account: Pubkey = pubkey!("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"); // supply your own
 let authority: Pubkey = pubkey!("CccbLj76vNwYe3sSTuPVUc1nRqRFG6fhAQThsiochKMg"); // mallory: this scenario's value; supply your own
 let ix = Instruction {
     program_id,
@@ -444,7 +444,7 @@ let ix = Instruction {
 import { getWriteInstructionAsync } from "your-generated-client";
 
 const ix = await getWriteInstructionAsync({
-  recordAccount: address("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"),
+  recordAccount: address("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"),
   authority: authoritySigner, // mallory (a TransactionSigner)
   offset: 0n,
   data: /* … */,
@@ -513,9 +513,9 @@ fn write_requires_the_authority() {
 <h2 id="authority-2"><a class="header" href="#authority-2">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1117[("1117…")]:::state
+    1119[("1119…")]:::state
     alice(["alice"]):::signer
-    Record --&gt;|writes| 1117
+    Record --&gt;|writes| 1119
     alice --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -525,10 +525,10 @@ fn write_requires_the_authority() {
 <h2 id="ownership-2"><a class="header" href="#ownership-2">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1117[("1117…")]:::state
+    1119[("1119…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    Record --&gt;|owns| 1117
+    Record --&gt;|owns| 1119
     system --&gt;|owns| alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -542,7 +542,7 @@ fn write_requires_the_authority() {
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1117…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1119…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -568,7 +568,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- write ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG"); // supply your own
+let record_account: Pubkey = pubkey!("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
 let ix = Instruction {
     program_id,
@@ -585,7 +585,7 @@ let ix = Instruction {
 import { getWriteInstructionAsync } from "your-generated-client";
 
 const ix = await getWriteInstructionAsync({
-  recordAccount: address("1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG"),
+  recordAccount: address("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"),
   authority: authoritySigner, // alice (a TransactionSigner)
   offset: 0n,
   data: /* … */,
@@ -673,9 +673,9 @@ fn write_then_read_back() {
 <h2 id="authority-3"><a class="header" href="#authority-3">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111B[("111B…")]:::state
+    111F[("111F…")]:::state
     alice(["alice"]):::signer
-    Record --&gt;|writes| 111B
+    Record --&gt;|writes| 111F
     alice --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -685,10 +685,10 @@ fn write_then_read_back() {
 <h2 id="ownership-3"><a class="header" href="#ownership-3">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111B[("111B…")]:::state
+    111F[("111F…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    Record --&gt;|owns| 111B
+    Record --&gt;|owns| 111F
     system --&gt;|owns| alice
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -702,7 +702,7 @@ fn write_then_read_back() {
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111B…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
 <tr><td>bob</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
@@ -729,7 +729,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- setAuthority ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"); // supply your own
+let record_account: Pubkey = pubkey!("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
 let new_authority: Pubkey = pubkey!("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"); // bob: this scenario's value; supply your own
 let ix = Instruction {
@@ -748,7 +748,7 @@ let ix = Instruction {
 import { getSetAuthorityInstructionAsync } from "your-generated-client";
 
 const ix = await getSetAuthorityInstructionAsync({
-  recordAccount: address("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"),
+  recordAccount: address("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"),
   authority: authoritySigner, // alice (a TransactionSigner)
   newAuthority: address("6DAhWE3pSJQrSFRNjkGQznpUi7wWnqWf3FnRyZQqxbvu"), // bob
 });
@@ -854,12 +854,12 @@ fn set_authority_transfers_control() {
 <h2 id="authority-4"><a class="header" href="#authority-4">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1119[("1119…")]:::state
+    1115[("1115…")]:::state
     alice(["alice"]):::signer
-    111J[("111J…")]:::state
-    Record --&gt;|writes| 1119
+    111B[("111B…")]:::state
+    Record --&gt;|writes| 1115
     alice --&gt;|signs| Record
-    Record --&gt;|writes| 111J
+    Record --&gt;|writes| 111B
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -868,13 +868,13 @@ fn set_authority_transfers_control() {
 <h2 id="ownership-4"><a class="header" href="#ownership-4">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1119[("1119…")]:::state
+    1115[("1115…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    111J[("111J…")]:::state
-    Record --&gt;|owns| 1119
+    111B[("111B…")]:::state
+    Record --&gt;|owns| 1115
     system --&gt;|owns| alice
-    system --&gt;|owns| 111J
+    system --&gt;|owns| 111B
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -887,9 +887,9 @@ fn set_authority_transfers_control() {
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1119…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1115…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>111J…</td><td>·</td><td>✓</td><td>system</td></tr>
+<tr><td>111B…</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
 </div>
@@ -914,9 +914,9 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- closeAccount ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"); // supply your own
+let record_account: Pubkey = pubkey!("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
-let receiver: Pubkey = pubkey!("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"); // supply your own
+let receiver: Pubkey = pubkey!("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"); // supply your own
 let ix = Instruction {
     program_id,
     accounts: vec![
@@ -933,9 +933,9 @@ let ix = Instruction {
 import { getCloseAccountInstructionAsync } from "your-generated-client";
 
 const ix = await getCloseAccountInstructionAsync({
-  recordAccount: address("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"),
+  recordAccount: address("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"),
   authority: authoritySigner, // alice (a TransactionSigner)
-  receiver: address("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"),
+  receiver: address("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"),
 });
 </code></pre>
 <details>

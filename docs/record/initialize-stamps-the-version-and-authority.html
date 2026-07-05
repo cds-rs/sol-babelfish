@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
+            window.path_to_searchindex_js = "searchindex-3ff3bd8a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -196,8 +196,8 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1115[("1115…")]:::state
-    Record --&gt;|writes| 1115
+    1117[("1117…")]:::state
+    Record --&gt;|writes| 1117
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -206,8 +206,8 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1115[("1115…")]:::state
-    Record --&gt;|owns| 1115
+    1117[("1117…")]:::state
+    Record --&gt;|owns| 1117
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -220,7 +220,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1115…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1117…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>·</td><td>·</td><td>system</td></tr>
 </tbody>
 </table>
@@ -246,7 +246,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- initialize ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"); // supply your own
+let record_account: Pubkey = pubkey!("1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
 let ix = Instruction {
     program_id,
@@ -263,7 +263,7 @@ let ix = Instruction {
 import { getInitializeInstructionAsync } from "your-generated-client";
 
 const ix = await getInitializeInstructionAsync({
-  recordAccount: address("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"),
+  recordAccount: address("1117mWrzzrZr312ebPDHu8tbfMwFNvCvMbr6WepCNG"),
   authority: address("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"), // alice
 });
 </code></pre>

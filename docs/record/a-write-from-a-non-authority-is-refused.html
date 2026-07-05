@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
+            window.path_to_searchindex_js = "searchindex-3ff3bd8a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -196,9 +196,9 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     mallory(["mallory"]):::signer
-    Record --&gt;|writes| 111F
+    Record --&gt;|writes| 111J
     mallory --&gt;|signs| Record
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -208,10 +208,10 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    111F[("111F…")]:::state
+    111J[("111J…")]:::state
     system["system"]:::program
     mallory[("mallory")]:::state
-    Record --&gt;|owns| 111F
+    Record --&gt;|owns| 111J
     system --&gt;|owns| mallory
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
@@ -225,7 +225,7 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>111F…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>111J…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>mallory</td><td>✓</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
@@ -252,7 +252,7 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- write ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"); // supply your own
+let record_account: Pubkey = pubkey!("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"); // supply your own
 let authority: Pubkey = pubkey!("CccbLj76vNwYe3sSTuPVUc1nRqRFG6fhAQThsiochKMg"); // mallory: this scenario's value; supply your own
 let ix = Instruction {
     program_id,
@@ -269,7 +269,7 @@ let ix = Instruction {
 import { getWriteInstructionAsync } from "your-generated-client";
 
 const ix = await getWriteInstructionAsync({
-  recordAccount: address("111FJo4zLAGU9nzTWa6EnbV4VAmtG4FR8kcokrtZYr"),
+  recordAccount: address("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"),
   authority: authoritySigner, // mallory (a TransactionSigner)
   offset: 0n,
   data: /* … */,

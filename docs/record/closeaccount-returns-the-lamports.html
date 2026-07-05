@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9be9ada7.js";
+            window.path_to_searchindex_js = "searchindex-3ff3bd8a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ed5253f.js"></script>
@@ -196,12 +196,12 @@
 <h2 id="authority"><a class="header" href="#authority">Authority</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1119[("1119…")]:::state
+    1115[("1115…")]:::state
     alice(["alice"]):::signer
-    111J[("111J…")]:::state
-    Record --&gt;|writes| 1119
+    111B[("111B…")]:::state
+    Record --&gt;|writes| 1115
     alice --&gt;|signs| Record
-    Record --&gt;|writes| 111J
+    Record --&gt;|writes| 111B
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -210,13 +210,13 @@
 <h2 id="ownership"><a class="header" href="#ownership">Ownership</a></h2>
 <pre class="mermaid">flowchart LR
     Record["Record"]:::program
-    1119[("1119…")]:::state
+    1115[("1115…")]:::state
     system["system"]:::program
     alice[("alice")]:::state
-    111J[("111J…")]:::state
-    Record --&gt;|owns| 1119
+    111B[("111B…")]:::state
+    Record --&gt;|owns| 1115
     system --&gt;|owns| alice
-    system --&gt;|owns| 111J
+    system --&gt;|owns| 111B
     classDef program fill:#dae8fc,stroke:#6c8ebf;
     classDef signer fill:#d5e8d4,stroke:#82b366;
     classDef state fill:#ffe6cc,stroke:#d79b00;
@@ -229,9 +229,9 @@
 <tr><th>Account</th><th>Signer</th><th>Writable</th><th>Owner</th></tr>
 </thead>
 <tbody>
-<tr><td>1119…</td><td>·</td><td>✓</td><td>Record</td></tr>
+<tr><td>1115…</td><td>·</td><td>✓</td><td>Record</td></tr>
 <tr><td>alice</td><td>✓</td><td>✓</td><td>system</td></tr>
-<tr><td>111J…</td><td>·</td><td>✓</td><td>system</td></tr>
+<tr><td>111B…</td><td>·</td><td>✓</td><td>system</td></tr>
 </tbody>
 </table>
 </div>
@@ -256,9 +256,9 @@ use solana_pubkey::{pubkey, Pubkey};
 
 // --- closeAccount ---
 let program_id: Pubkey = pubkey!("recr1L3PCGKLbckBqMNcJhuuyU1zgo8nBhfLVsJNwr5");
-let record_account: Pubkey = pubkey!("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"); // supply your own
+let record_account: Pubkey = pubkey!("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"); // supply your own
 let authority: Pubkey = pubkey!("2rj1EEgg32bupe12mMYnPFaKQCPPyYBhKYmDFZ8cXxpT"); // alice: this scenario's value; supply your own
-let receiver: Pubkey = pubkey!("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"); // supply your own
+let receiver: Pubkey = pubkey!("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"); // supply your own
 let ix = Instruction {
     program_id,
     accounts: vec![
@@ -275,9 +275,9 @@ let ix = Instruction {
 import { getCloseAccountInstructionAsync } from "your-generated-client";
 
 const ix = await getCloseAccountInstructionAsync({
-  recordAccount: address("1119DWteoLSdjvrT6g6L8C2PfDD2faiTQUpsjY2RiF"),
+  recordAccount: address("11157t3sqMV725NVRLrVQbAu98Jjfk1uCKehJnXXQs"),
   authority: authoritySigner, // alice (a TransactionSigner)
-  receiver: address("111JV6iBiRLoJUtNieRJ9QmcpE2KPE3gLpDzAUkbNW"),
+  receiver: address("111BuZ6b86gm7XhxjvTakhRvxSMjXp2GqgifkNUmDK"),
 });
 </code></pre>
 <details>
